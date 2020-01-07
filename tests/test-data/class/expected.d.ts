@@ -10,5 +10,5 @@ class MyClass {
   public constructor();
   toString(): string;
   public get instanceId(): number;
-  public get instanceId(value: number);
+  public set instanceId(value: number);
 }

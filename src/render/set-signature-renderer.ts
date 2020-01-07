@@ -8,7 +8,7 @@ export default class SetSignatureRenderer extends SignatureRenderer {
     const lines: string[] = [];
     const declarationParts: string[] = [
       ...this.getModifiers(node, node.parent),
-      'get',
+      'set',
       node.parent?.name || node.name,
     ];
 
