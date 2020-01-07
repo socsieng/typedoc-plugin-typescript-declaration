@@ -11,7 +11,7 @@ export default abstract class Renderer {
     this._commentRenderer = new CommentRenderer();
   }
 
-  public abstract render(node: Reflection): string;
+  public abstract render(node: Reflection, terminationCharacter?: string): string;
 
   protected getModifiers(node: Reflection, parent?: Reflection): string[] {
     if (!node) return [];

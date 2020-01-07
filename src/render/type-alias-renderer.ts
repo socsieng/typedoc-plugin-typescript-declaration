@@ -25,7 +25,7 @@ export default class TypeAliasRenderer extends Renderer {
       const indent = this._indentor.getIndent(1);
       const members = type.declaration.children
         .sort(propertySorter(node => node.id))
-        .map(node => ReflectionFormatter.instance().render(node));
+        .map(node => `${ReflectionFormatter.instance().render(node)};`);
       lines.push(...members.map(block => block.split(/\r?\n(?=.)/gm).map(l => `${indent}${l}`).join('\n')));
     }
 

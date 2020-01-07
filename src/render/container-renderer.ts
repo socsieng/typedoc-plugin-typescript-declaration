@@ -38,10 +38,11 @@ export default class ContainerRenderer extends Renderer {
 
     // body
     if (declarationNode.children) {
-      const indent = this._indentor.getIndent(1);
       const members = declarationNode.children
         .sort(propertySorter(node => node.id))
-        .map(node => ReflectionFormatter.instance().render(node));
+        .map(node => ReflectionFormatter.instance().render(node, ';'));
+
+      const indent = this._indentor.getIndent(1);
       lines.push(...members.map(block => block.split(/\r?\n(?=.)/gm).map(l => `${indent}${l}`).join('\n')));
     }
 

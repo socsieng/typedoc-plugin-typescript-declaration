@@ -3,7 +3,7 @@ import join from '../util/join';
 import SignatureRenderer from "./signature-renderer";
 
 export default class CallSignatureRenderer extends SignatureRenderer {
-  public render(node: Reflection): string {
+  public render(node: Reflection, terminationCharacter?: string): string {
     const lines: string[] = [];
     const declarationParts: string[] = [
       ...this.getModifiers(node, node.parent),
@@ -21,7 +21,10 @@ export default class CallSignatureRenderer extends SignatureRenderer {
     declaration += this.renderTypeParameters(method);
     declaration += this.renderParameters(method);
     declaration += this.renderReturnType(method);
-    declaration += ';';
+
+    if (terminationCharacter) {
+      declaration += terminationCharacter;
+    }
 
     lines.push(declaration);
 

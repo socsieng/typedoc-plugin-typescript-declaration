@@ -12,6 +12,7 @@ import EnumMemberRenderer from './enum-member-renderer';
 import TypeLiteralRenderer from './type-literal-renderer';
 import TypeAliasRenderer from './type-alias-renderer';
 import FunctionRenderer from './function-renderer';
+import ParameterRenderer from './parameter-renderer';
 
 export default class ReflectionFormatter {
   private _renderers: { [kind: number]: Renderer } = {};
@@ -35,14 +36,15 @@ export default class ReflectionFormatter {
     this._renderers[ReflectionKind.TypeLiteral] = new TypeLiteralRenderer();
     this._renderers[ReflectionKind.TypeAlias] = new TypeAliasRenderer();
     this._renderers[ReflectionKind.Function] = new FunctionRenderer();
+    this._renderers[ReflectionKind.Parameter] = new ParameterRenderer();
   }
 
-  public render(reflection?: Reflection): string {
+  public render(reflection?: Reflection, terminatorCharater?: string): string {
     if (reflection) {
       const renderer = this._renderers[reflection.kind];
 
       if (renderer) {
-        return renderer.render(reflection);
+        return renderer.render(reflection, terminatorCharater);
       }
 
       throw new Error(`Unrecognised reflection for kind ${reflection.kindString} ${reflection.name}`);

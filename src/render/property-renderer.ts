@@ -1,10 +1,10 @@
 import Renderer from "./renderer";
-import { Reflection, SignatureReflection, DeclarationReflection } from "typedoc/dist/lib/models";
+import { Reflection, DeclarationReflection } from "typedoc/dist/lib/models";
 import join from '../util/join';
 import TypeFormatter from "./type-formatter";
 
 export default class PropertyRenderer extends Renderer {
-  public render(node: Reflection): string {
+  public render(node: Reflection, terminationCharacter?: string): string {
     const lines: string[] = [];
     const declarationParts: string[] = [...this.getModifiers(node), `${this.encodeName(node.name)}${node.flags.isOptional ? '?' : ''}`];
 
@@ -19,8 +19,8 @@ export default class PropertyRenderer extends Renderer {
       declaration += `: ${TypeFormatter.format(member.type)}`;
     }
 
-    if (declaration[declaration.length - 1] !== ';') {
-      declaration += ';';
+    if (terminationCharacter) {
+      declaration += terminationCharacter;
     }
 
     lines.push(declaration);

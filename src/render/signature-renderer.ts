@@ -1,6 +1,7 @@
 import Renderer from "./renderer";
 import { SignatureReflection, ReflectionKind } from "typedoc/dist/lib/models";
 import TypeFormatter from "./type-formatter";
+import ReflectionFormatter from "./reflection-formatter";
 
 export default abstract class SignatureRenderer extends Renderer {
   protected renderTypeParameters(method: SignatureReflection): string {
@@ -13,7 +14,7 @@ export default abstract class SignatureRenderer extends Renderer {
   protected renderParameters(method: SignatureReflection): string {
     let declaration = '(';
     if (method.parameters) {
-      declaration += method.parameters.map(p => `${p.flags.isRest ? '...' : ''}${p.name}${p.flags.isOptional ? '?' : ''}${p.type ? `: ${TypeFormatter.format(p.type)}` : ''}`).join(', ');
+      declaration += method.parameters.map(p => ReflectionFormatter.instance().render(p)).join(', ');
     }
     declaration += ')';
     return declaration;

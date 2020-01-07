@@ -9,7 +9,7 @@ import { ReflectionKind } from 'typedoc/dist/lib/models';
 
 const writeOutput = process.env['DEBUG_MODE'] === 'output';
 
-const folders = glob.sync('test-data/**/input.ts', { cwd: __dirname })
+const folders = glob.sync('test-data/**/*input.ts', { cwd: __dirname })
   .map(f => [f]);
 
 describe('Dynamic test suite', () => {

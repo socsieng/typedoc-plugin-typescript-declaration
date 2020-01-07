@@ -50,7 +50,7 @@ export default class TypeFormatter {
     }
 
     if (type.type === 'tuple') {
-      return `(${(type as TupleType).elements.map(t => TypeFormatter.format(t)).join(', ')})`;
+      return `[${(type as TupleType).elements.map(t => TypeFormatter.format(t)).join(', ')}]`;
     }
 
     if (type.type === 'typeOperator') {

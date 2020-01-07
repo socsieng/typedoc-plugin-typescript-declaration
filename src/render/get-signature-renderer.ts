@@ -4,7 +4,7 @@ import TypeFormatter from "./type-formatter";
 import SignatureRenderer from "./signature-renderer";
 
 export default class GetSignatureRenderer extends SignatureRenderer {
-  public render(node: Reflection): string {
+  public render(node: Reflection, terminationCharacter?: string): string {
     const lines: string[] = [];
     const declarationParts: string[] = [
       ...this.getModifiers(node, node.parent),
@@ -22,7 +22,10 @@ export default class GetSignatureRenderer extends SignatureRenderer {
     declaration += this.renderTypeParameters(method);
     declaration += this.renderParameters(method);
     declaration += this.renderReturnType(method);
-    declaration += ';';
+
+    if (terminationCharacter) {
+      declaration += terminationCharacter;
+    }
 
     lines.push(declaration);
 
