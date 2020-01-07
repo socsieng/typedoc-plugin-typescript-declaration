@@ -28,5 +28,8 @@
   "exclude": [
     "*.config.js",
     "src/**/*.test.(ts|tsx)",
+    "src/**/*.spec.(ts|tsx)",
+    "tests/test-data/**/*.ts",
+    "output/**/*.ts",
   ]
 }

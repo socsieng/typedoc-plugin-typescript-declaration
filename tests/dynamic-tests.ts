@@ -6,8 +6,9 @@ import join from '../src/util/join';
 import { CallbackLogger } from 'typedoc/dist/lib/utils';
 import ReflectionFormatter from '../src/render/reflection-formatter';
 import { ReflectionKind } from 'typedoc/dist/lib/models';
+import mkdir from 'make-dir';
 
-const writeOutput = process.env['DEBUG_MODE'] === 'output';
+const writeOutput = process.env['DEBUG_MODE'] !== 'none';
 
 const folders = glob.sync('test-data/**/*input.ts', { cwd: __dirname })
   .map(f => [f]);
@@ -30,16 +31,24 @@ describe('Dynamic test suite', () => {
     const formatter = ReflectionFormatter.instance();
 
     if (reflection) {
+      const ouputBase = path.resolve(__dirname, '../output');
+      const outputJsonFile = `${path.join(ouputBase, basename)}output.json`;
+      const outputDeclarationFile = `${path.join(ouputBase, basename)}output.d.ts`;
+      const outputDirectory = path.dirname(outputJsonFile);
       if (writeOutput) {
-        const outputFile = `${basename}output.json`;
-        fs.writeFileSync(path.join(__dirname, outputFile), JSON.stringify(reflection.toObject(), null, '  '));
-      }
+          mkdir.sync(outputDirectory);
+
+          fs.writeFileSync(outputJsonFile, JSON.stringify(reflection.toObject(), null, '  '));
+        }
 
       const result = join('\n', reflection.children!
         .map(c => c.kind === ReflectionKind.ExternalModule ? c.children! : [c])
         .reduce((prev, item) => [...prev, ...item], [])
         .map(r => formatter.render(r)));
 
+      if (writeOutput) {
+        fs.writeFileSync(outputDeclarationFile, result);
+      }
       expect(result).toBe(expectedOutput.trim());
     } else {
       console.log(logOutput.join('\n'));

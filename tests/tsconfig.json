@@ -27,6 +27,6 @@
   ],
   "exclude": [
     "*.config.js",
-    "src/**/*.test.(ts|tsx)",
+    "test-data/**/*.ts",
   ]
 }
