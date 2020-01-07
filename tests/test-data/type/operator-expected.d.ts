@@ -1,5 +1,6 @@
 module test {
   type StatusType = keyof StatusTypes;
+
   type StatusTypes = {
     /**
      * Success

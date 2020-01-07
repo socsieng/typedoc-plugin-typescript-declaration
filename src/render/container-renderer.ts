@@ -1,5 +1,5 @@
 import Renderer from "./renderer";
-import { Reflection, DeclarationReflection } from "typedoc/dist/lib/models";
+import { Reflection, DeclarationReflection, ReflectionKind } from "typedoc/dist/lib/models";
 import join from '../util/join';
 import TypeFormatter from "./type-formatter";
 import ReflectionFormatter from "./reflection-formatter";
@@ -45,10 +45,11 @@ export default class ContainerRenderer extends Renderer {
           return !node.sources || ownedSources?.length !== 0;
         })
         .sort(propertySorter(node => node.id))
-        .map(node => ReflectionFormatter.instance().render(node, ';'));
+        .map(node => ReflectionFormatter.instance().render(node, ';'))
+        .join(['class', 'module', 'interface'].find(type => type === this._type) ? '\n\n' : '\n');
 
       const indent = this._indentor.getIndent(1);
-      lines.push(...members.map(block => block.split(/\r?\n(?=.)/gm).map(l => `${indent}${l}`).join('\n')));
+      lines.push(members.split(/\r?\n(?=.)/gm).map(l => `${indent}${l}`).join('\n'));
     }
 
     lines.push('}');
