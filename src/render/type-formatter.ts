@@ -1,8 +1,22 @@
 import { ReferenceType, Type, IntrinsicType, UnionType, ArrayType, IntersectionType, TupleType, StringLiteralType, TypeOperatorType, ConditionalType, IndexedAccessType, PredicateType, TypeParameterType, ReflectionType } from "typedoc/dist/lib/models";
 import ReflectionFormatter from "./reflection-formatter";
 
+interface TypeFormatterOptions {
+  isOptionalType?: boolean;
+  includeConstraints?: boolean;
+}
+
+const defaultOptions: TypeFormatterOptions = {
+  isOptionalType: false,
+  includeConstraints: true,
+};
+
 export default class TypeFormatter {
-  public static format(type: Type): string {
+  public static format(type: Type, options?: TypeFormatterOptions): string {
+    const mergedOptions = {
+      ...defaultOptions,
+      ...options,
+    }
 
     if (type.type === 'array') {
       return `${TypeFormatter.format((type as ArrayType).elementType)}[]`;
@@ -60,7 +74,7 @@ export default class TypeFormatter {
 
     if (type.type === 'typeParameter') {
       const typeParamType = type as TypeParameterType;
-      if (typeParamType.constraint) {
+      if (typeParamType.constraint && mergedOptions.includeConstraints) {
         return `${typeParamType.name} extends ${TypeFormatter.format(typeParamType.constraint)}`;
       }
     }
@@ -69,7 +83,7 @@ export default class TypeFormatter {
       return (type as UnionType).types
         .filter(t => {
           const intrinsicType = t as IntrinsicType;
-          return !(intrinsicType.type === 'intrinsic' && intrinsicType.name === 'undefined');
+          return !mergedOptions.isOptionalType || !(intrinsicType.type === 'intrinsic' && intrinsicType.name === 'undefined');
         })
         .map(t => TypeFormatter.format(t)).join(' | ');
     }

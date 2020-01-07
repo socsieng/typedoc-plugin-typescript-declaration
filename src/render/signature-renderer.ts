@@ -6,7 +6,7 @@ import ReflectionFormatter from "./reflection-formatter";
 export default abstract class SignatureRenderer extends Renderer {
   protected renderTypeParameters(method: SignatureReflection): string {
     if (method.typeParameters) {
-      return `<${method.typeParameters.map(p => TypeFormatter.format(p.type!))}>`;
+      return `<${method.typeParameters.map(p => ReflectionFormatter.instance().render(p)).join(', ')}>`;
     }
     return '';
   }
@@ -22,7 +22,7 @@ export default abstract class SignatureRenderer extends Renderer {
 
   protected renderReturnType(method: SignatureReflection): string {
     if (method.type) {
-      return `${method.parent?.kind === ReflectionKind.TypeLiteral ? ' =>': ':'} ${TypeFormatter.format(method.type)}`;
+      return `${method.parent?.kind === ReflectionKind.TypeLiteral ? ' =>': ':'} ${TypeFormatter.format(method.type, { includeConstraints: false })}`;
     }
     return '';
   }

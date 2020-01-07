@@ -1,12 +1,15 @@
 import Renderer from "./renderer";
-import { Reflection, SignatureReflection, DeclarationReflection, ParameterReflection, ReflectionType } from "typedoc/dist/lib/models";
+import { Reflection, ParameterReflection, ReflectionType } from "typedoc/dist/lib/models";
 import join from '../util/join';
 import TypeFormatter from "./type-formatter";
 
 export default class ParameterRenderer extends Renderer {
   public render(node: Reflection): string {
     const p = node as ParameterReflection;
-    let declaration = `${p.flags.isRest ? '...' : ''}${this.getName(p)}${p.flags.isOptional ? '?' : ''}${p.type ? `: ${TypeFormatter.format(p.type)}` : ''}`;
+    let declaration = `${p.flags.isRest ? '...' : ''}${this.getName(p)}${p.flags.isOptional ? '?' : ''}${p.type ? `: ${TypeFormatter.format(p.type, {
+      isOptionalType: p.flags.isOptional,
+      includeConstraints: false,
+    } )}` : ''}`;
     return declaration;
   }
 

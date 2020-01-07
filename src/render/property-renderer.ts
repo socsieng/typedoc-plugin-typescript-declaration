@@ -16,7 +16,7 @@ export default class PropertyRenderer extends Renderer {
     let declaration = join(' ', ...declarationParts);
 
     if (member.type) {
-      declaration += `: ${TypeFormatter.format(member.type)}`;
+      declaration += `: ${TypeFormatter.format(member.type, { isOptionalType: node.flags.isOptional })}`;
     }
 
     if (terminationCharacter) {

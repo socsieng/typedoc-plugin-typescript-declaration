@@ -13,6 +13,7 @@ import TypeLiteralRenderer from './type-literal-renderer';
 import TypeAliasRenderer from './type-alias-renderer';
 import FunctionRenderer from './function-renderer';
 import ParameterRenderer from './parameter-renderer';
+import TypeParameterRenderer from './type-parameter-renderer';
 
 export default class ReflectionFormatter {
   private _renderers: { [kind: number]: Renderer } = {};
@@ -37,6 +38,7 @@ export default class ReflectionFormatter {
     this._renderers[ReflectionKind.TypeAlias] = new TypeAliasRenderer();
     this._renderers[ReflectionKind.Function] = new FunctionRenderer();
     this._renderers[ReflectionKind.Parameter] = new ParameterRenderer();
+    this._renderers[ReflectionKind.TypeParameter] = new TypeParameterRenderer();
   }
 
   public render(reflection?: Reflection, terminatorCharater?: string): string {

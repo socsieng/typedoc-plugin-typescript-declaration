@@ -16,7 +16,7 @@ export default class ContainerRenderer extends Renderer {
 
   public render(node: Reflection): string {
     const lines: string[] = [];
-    const declarationParts: string[] = [...this.getModifiers(node), this._type, node.name];
+    const declarationParts: string[] = [...this.getModifiers(node), this._type, `${node.name}${this.renderTypeParameters(node as DeclarationReflection)}`];
 
     if (node.comment)
     {
@@ -39,6 +39,11 @@ export default class ContainerRenderer extends Renderer {
     // body
     if (declarationNode.children) {
       const members = declarationNode.children
+        .filter(node => !node.inheritedFrom)
+        .filter(node => {
+          const ownedSources = node.sources?.filter(s => !/^node_modules\//i.test(s.fileName));
+          return !node.sources || ownedSources?.length !== 0;
+        })
         .sort(propertySorter(node => node.id))
         .map(node => ReflectionFormatter.instance().render(node, ';'));
 
@@ -49,5 +54,12 @@ export default class ContainerRenderer extends Renderer {
     lines.push('}');
 
     return lines.join('\n');
+  }
+
+  protected renderTypeParameters(node: DeclarationReflection): string {
+    if (node.typeParameters) {
+      return `<${node.typeParameters.map(p => ReflectionFormatter.instance().render(p)).join(', ')}>`;
+    }
+    return '';
   }
 }
