@@ -1,0 +1,2 @@
+[*.d.ts]
+insert_final_newline = false
