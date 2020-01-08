@@ -1,6 +1,6 @@
-import ReflectionRenderer from "./reflection-renderer";
-import { Reflection, DeclarationReflection } from "typedoc/dist/lib/models";
-import ReflectionFormatter from "./reflection-formatter";
+import { DeclarationReflection, Reflection } from 'typedoc/dist/lib/models';
+import ReflectionFormatter from './reflection-formatter';
+import ReflectionRenderer from './reflection-renderer';
 
 export default class MethodRenderer extends ReflectionRenderer {
   public render(node: Reflection, terminationCharacter?: string): string {

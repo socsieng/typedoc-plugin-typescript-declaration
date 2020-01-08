@@ -1,5 +1,4 @@
-import ReflectionRenderer from "./reflection-renderer";
-import { Reflection, SignatureReflection } from "typedoc/dist/lib/models";
+import { Reflection, SignatureReflection } from 'typedoc/dist/lib/models';
 import join from '../util/join';
 
 export default class CommentRenderer {
@@ -9,7 +8,7 @@ export default class CommentRenderer {
     const comment = node.comment;
 
     if (comment) {
-      lines.push(`/**`);
+      lines.push('/**');
       if (comment.shortText) {
         sections.push(
           comment.shortText.replace(/\n$/g, '')
@@ -34,7 +33,7 @@ export default class CommentRenderer {
           .filter(p => p.comment?.text)
           .map(p => ` * @param ${join(' ', p.name,
             p.comment?.text?.replace(/\n$/m, '')
-            ?.replace(/\n/gm, `\n * `) || '')}`)
+            ?.replace(/\n/gm, '\n * ') || '')}`)
           .join('\n');
 
         if (paramComments.length) {
@@ -49,8 +48,8 @@ export default class CommentRenderer {
             .join('\n')
         );
       }
-      lines.push(sections.join(`\n *\n`));
-      lines.push(` */`);
+      lines.push(sections.join('\n *\n'));
+      lines.push(' */');
     }
     return lines.join('\n');
   }

@@ -1,6 +1,6 @@
-import { Reflection, ReflectionKind } from "typedoc/dist/lib/models";
-import Indentor from "./indentor";
-import CommentRenderer from "./comment-renderer";
+import { Reflection, ReflectionKind } from 'typedoc/dist/lib/models';
+import CommentRenderer from './comment-renderer';
+import Indentor from './indentor';
 
 export default abstract class ReflectionRenderer {
   protected _indentor: Indentor;

@@ -1,9 +1,9 @@
-import { Component, RendererComponent } from 'typedoc/dist/lib/output/components';
-import { RendererEvent } from 'typedoc/dist/lib/output/events';
-import join from './util/join';
-import ReflectionFormatter from './render/reflection-formatter';
 import * as fs from 'fs';
 import * as path from 'path';
+import { Component, RendererComponent } from 'typedoc/dist/lib/output/components';
+import ReflectionFormatter from './render/reflection-formatter';
+import { RendererEvent } from 'typedoc/dist/lib/output/events';
+import join from './util/join';
 import mkdir from 'make-dir';
 
 @Component({ name: 'typescript-declaration-renderer' })

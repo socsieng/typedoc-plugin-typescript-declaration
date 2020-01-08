@@ -1,18 +1,18 @@
 import { Reflection, ReflectionKind } from 'typedoc/dist/lib/models';
-import ReflectionRenderer from './reflection-renderer';
-import ContainerRenderer from './container-renderer';
-import MethodRenderer from './method-renderer';
+import AccessorRenderer from './accessor-renderer';
 import CallSignatureRenderer from './call-signature-renderer';
 import ConstructorSignatureRenderer from './constructor-signature-renderer';
-import AccessorRenderer from './accessor-renderer';
-import GetSignatureRenderer from './get-signature-renderer';
-import SetSignatureRenderer from './set-signature-renderer';
-import PropertyRenderer from './property-renderer';
+import ContainerRenderer from './container-renderer';
 import EnumMemberRenderer from './enum-member-renderer';
-import TypeLiteralRenderer from './type-literal-renderer';
-import TypeAliasRenderer from './type-alias-renderer';
 import FunctionRenderer from './function-renderer';
+import GetSignatureRenderer from './get-signature-renderer';
+import MethodRenderer from './method-renderer';
 import ParameterRenderer from './parameter-renderer';
+import PropertyRenderer from './property-renderer';
+import ReflectionRenderer from './reflection-renderer';
+import SetSignatureRenderer from './set-signature-renderer';
+import TypeAliasRenderer from './type-alias-renderer';
+import TypeLiteralRenderer from './type-literal-renderer';
 import TypeParameterRenderer from './type-parameter-renderer';
 
 export default class ReflectionFormatter {

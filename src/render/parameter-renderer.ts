@@ -1,7 +1,7 @@
-import ReflectionRenderer from "./reflection-renderer";
-import { Reflection, ParameterReflection, ReflectionType } from "typedoc/dist/lib/models";
+import { ParameterReflection, Reflection, ReflectionType } from 'typedoc/dist/lib/models';
+import ReflectionRenderer from './reflection-renderer';
+import TypeFormatter from './type-formatter';
 import join from '../util/join';
-import TypeFormatter from "./type-formatter";
 
 export default class ParameterRenderer extends ReflectionRenderer {
   public render(node: Reflection): string {

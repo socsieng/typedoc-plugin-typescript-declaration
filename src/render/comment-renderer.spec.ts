@@ -1,5 +1,5 @@
-import CommentRenderer from "./comment-renderer";
-import { Reflection, SignatureReflection, ReflectionKind, Comment, ParameterReflection, CommentTag } from "typedoc/dist/lib/models";
+import { Comment, CommentTag, ParameterReflection, ReflectionKind, SignatureReflection } from 'typedoc/dist/lib/models';
+import CommentRenderer from './comment-renderer';
 
 it('should render short text only', () => {
   const renderer = new CommentRenderer();

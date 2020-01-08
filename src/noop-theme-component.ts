@@ -1,8 +1,8 @@
-import { Component } from 'typedoc/dist/lib/output/components';
-import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
-import { Converter, Context } from 'typedoc/dist/lib/converter';
-import { Renderer } from 'typedoc/dist/lib/output/renderer';
 import * as path from 'path';
+import { Component } from 'typedoc/dist/lib/output/components';
+import { Converter } from 'typedoc/dist/lib/converter';
+import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
+import { Renderer } from 'typedoc/dist/lib/output/renderer';
 
 @Component({ name: 'noop-theme' })
 export class NoopThemeComponent extends ConverterComponent {

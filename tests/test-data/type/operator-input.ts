@@ -1,5 +1,5 @@
 export module test {
-  type StatusType = keyof StatusTypes;
+  export type StatusType = keyof StatusTypes;
   type StatusTypes = {
     /**
      * Success

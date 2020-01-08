@@ -1,9 +1,9 @@
-import ReflectionRenderer from "./reflection-renderer";
-import { Reflection, DeclarationReflection, ReflectionType, ReflectionKind } from "typedoc/dist/lib/models";
-import ReflectionFormatter from "./reflection-formatter";
-import TypeFormatter from "./type-formatter";
-import join from "../util/join";
-import { propertySorter } from "../util/sort";
+import { DeclarationReflection, Reflection, ReflectionType } from 'typedoc/dist/lib/models';
+import ReflectionFormatter from './reflection-formatter';
+import ReflectionRenderer from './reflection-renderer';
+import TypeFormatter from './type-formatter';
+import join from '../util/join';
+import { propertySorter } from '../util/sort';
 
 export default class TypeAliasRenderer extends ReflectionRenderer {
   public render(node: Reflection, terminationCharacter?: string): string {

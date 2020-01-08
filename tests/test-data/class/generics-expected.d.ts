@@ -9,5 +9,5 @@ declare class MyList<T> extends Array<T> {
 
   public static create2<TCreate>(c: { new(): TCreate }): TCreate;
 
-  private wrap(): Array<T[]>;
+  public wrap(): Array<T[]>;
 }

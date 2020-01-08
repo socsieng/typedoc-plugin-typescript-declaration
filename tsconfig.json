@@ -20,16 +20,19 @@
     "jsx": "react",
     "declaration": false,
     "outDir": "build",
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
     "sourceMap": true
   },
   "include": [
-    "src"
+    "src/**/*.ts",
+    "tests/**/*.ts"
   ],
   "exclude": [
     "*.config.js",
     "src/**/*.test.(ts|tsx)",
     "src/**/*.spec.(ts|tsx)",
     "tests/test-data/**/*.ts",
-    "output/**/*.ts",
+    "output/**/*.ts"
   ]
 }

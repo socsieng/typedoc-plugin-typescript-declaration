@@ -1,9 +1,9 @@
-import ReflectionRenderer from "./reflection-renderer";
-import { Reflection, DeclarationReflection, ReflectionKind } from "typedoc/dist/lib/models";
+import { DeclarationReflection, Reflection } from 'typedoc/dist/lib/models';
+import ReflectionFormatter from './reflection-formatter';
+import ReflectionRenderer from './reflection-renderer';
+import TypeFormatter from './type-formatter';
 import join from '../util/join';
-import TypeFormatter from "./type-formatter";
-import ReflectionFormatter from "./reflection-formatter";
-import { propertySorter } from "../util/sort";
+import { propertySorter } from '../util/sort';
 
 export default class ContainerRenderer extends ReflectionRenderer {
   private _type: string;

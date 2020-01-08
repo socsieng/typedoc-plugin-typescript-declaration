@@ -1,7 +1,6 @@
-import ReflectionRenderer from "./reflection-renderer";
-import { Reflection, SignatureReflection, DeclarationReflection } from "typedoc/dist/lib/models";
+import { DeclarationReflection, Reflection } from 'typedoc/dist/lib/models';
+import ReflectionRenderer from './reflection-renderer';
 import join from '../util/join';
-import TypeFormatter from "./type-formatter";
 
 export default class EnumMemberRenderer extends ReflectionRenderer {
   public render(node: Reflection): string {

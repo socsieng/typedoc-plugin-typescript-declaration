@@ -1,8 +1,8 @@
-import { Application } from "typedoc/dist/lib/application";
-import { TypeScriptDeclarationRenderer } from "./typescript-declaration-renderer";
-import { ParameterType, ParameterHint } from "typedoc/dist/lib/utils/options/declaration";
-import { FilterConverter } from "./filter-converter";
-import { NoopThemeComponent } from "./noop-theme-component";
+import { ParameterHint, ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
+import { Application } from 'typedoc/dist/lib/application';
+import { FilterConverter } from './filter-converter';
+import { NoopThemeComponent } from './noop-theme-component';
+import { TypeScriptDeclarationRenderer } from './typescript-declaration-renderer';
 
 module.exports = (PluginHost: Application) => {
   const app = PluginHost.owner;

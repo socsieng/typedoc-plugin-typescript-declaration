@@ -1,7 +1,7 @@
-import ReflectionRenderer from "./reflection-renderer";
-import { Reflection, DeclarationReflection } from "typedoc/dist/lib/models";
-import ReflectionFormatter from "./reflection-formatter";
-import join from "../util/join";
+import { DeclarationReflection, Reflection } from 'typedoc/dist/lib/models';
+import ReflectionFormatter from './reflection-formatter';
+import ReflectionRenderer from './reflection-renderer';
+import join from '../util/join';
 
 export default class TypeLiteralRenderer extends ReflectionRenderer {
   public render(node: Reflection): string {
@@ -14,8 +14,6 @@ export default class TypeLiteralRenderer extends ReflectionRenderer {
     const member = node as DeclarationReflection;
 
     if (member.children) {
-      const declarationParts: string[] = [];
-
       lines.push(join(' ', '{', member.children.map(c => ReflectionFormatter.instance().render(c)).join(', '), '}'));
     }
 

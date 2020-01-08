@@ -1,7 +1,6 @@
-import { Reflection, SignatureReflection } from "typedoc/dist/lib/models";
+import { Reflection, SignatureReflection } from 'typedoc/dist/lib/models';
+import SignatureRenderer from './signature-renderer';
 import join from '../util/join';
-import TypeFormatter from "./type-formatter";
-import SignatureRenderer from "./signature-renderer";
 
 export default class GetSignatureRenderer extends SignatureRenderer {
   public render(node: Reflection, terminationCharacter?: string): string {

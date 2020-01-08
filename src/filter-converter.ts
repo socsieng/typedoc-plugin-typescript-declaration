@@ -1,6 +1,6 @@
+import { Context, Converter } from 'typedoc/dist/lib/converter';
 import { Component } from 'typedoc/dist/lib/output/components';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
-import { Converter, Context } from 'typedoc/dist/lib/converter';
 import { Reflection } from 'typedoc/dist/lib/models';
 import Version from './util/version';
 import VersionFilter from './convert/version-filter';

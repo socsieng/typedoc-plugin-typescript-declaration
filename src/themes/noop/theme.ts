@@ -1,8 +1,8 @@
-import { Theme } from "typedoc/dist/lib/output/theme";
-import { ProjectReflection } from "typedoc/dist/lib/models";
-import { UrlMapping } from "typedoc/dist/lib/output/models/UrlMapping";
-import { NavigationItem } from "typedoc/dist/lib/output/models/NavigationItem";
-import { Renderer } from "typedoc/dist/lib/output/renderer";
+import { NavigationItem } from 'typedoc/dist/lib/output/models/NavigationItem';
+import { ProjectReflection } from 'typedoc/dist/lib/models';
+import { Renderer } from 'typedoc/dist/lib/output/renderer';
+import { Theme } from 'typedoc/dist/lib/output/theme';
+import { UrlMapping } from 'typedoc/dist/lib/output/models/UrlMapping';
 
 export default class NoopTheme extends Theme {
   constructor(renderer: Renderer, basePath: string) {

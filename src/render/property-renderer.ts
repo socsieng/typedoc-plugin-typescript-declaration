@@ -1,7 +1,7 @@
-import ReflectionRenderer from "./reflection-renderer";
-import { Reflection, DeclarationReflection } from "typedoc/dist/lib/models";
+import { DeclarationReflection, Reflection } from 'typedoc/dist/lib/models';
+import ReflectionRenderer from './reflection-renderer';
+import TypeFormatter from './type-formatter';
 import join from '../util/join';
-import TypeFormatter from "./type-formatter";
 
 export default class PropertyRenderer extends ReflectionRenderer {
   public render(node: Reflection, terminationCharacter?: string): string {

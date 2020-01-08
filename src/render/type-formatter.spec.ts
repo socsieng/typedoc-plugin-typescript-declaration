@@ -1,5 +1,5 @@
-import { IntrinsicType, ReferenceType, UnionType, ArrayType, TypeOperatorType, ConditionalType, IndexedAccessType, PredicateType, TypeParameterType } from "typedoc/dist/lib/models";
-import TypeFormatter from "./type-formatter";
+import { ArrayType, ConditionalType, IndexedAccessType, IntrinsicType, PredicateType, ReferenceType, TypeOperatorType, TypeParameterType, UnionType } from 'typedoc/dist/lib/models';
+import TypeFormatter from './type-formatter';
 
 it('should format intrinsic type', () => {
   const type = new IntrinsicType('string');

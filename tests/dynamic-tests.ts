@@ -1,13 +1,13 @@
-import glob from 'glob';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Application } from 'typedoc/dist/lib/application';
-import join from '../src/util/join';
 import { CallbackLogger } from 'typedoc/dist/lib/utils';
 import ReflectionFormatter from '../src/render/reflection-formatter';
-import mkdir from 'make-dir';
-import VersionFilter from '../src/convert/version-filter';
 import Version from '../src/util/version';
+import VersionFilter from '../src/convert/version-filter';
+import glob from 'glob';
+import join from '../src/util/join';
+import mkdir from 'make-dir';
 
 const writeOutput = process.env['DEBUG_MODE'] !== 'none';
 

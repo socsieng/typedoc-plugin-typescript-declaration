@@ -1,0 +1,6 @@
+test-data/
+node_modules/
+example/
+output/
+*.d.ts
+*.config.js

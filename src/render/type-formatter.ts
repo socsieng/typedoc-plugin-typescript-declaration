@@ -1,5 +1,5 @@
-import { ReferenceType, Type, IntrinsicType, UnionType, ArrayType, IntersectionType, TupleType, StringLiteralType, TypeOperatorType, ConditionalType, IndexedAccessType, PredicateType, TypeParameterType, ReflectionType } from "typedoc/dist/lib/models";
-import ReflectionFormatter from "./reflection-formatter";
+import { ArrayType, ConditionalType, IndexedAccessType, IntersectionType, IntrinsicType, PredicateType, ReferenceType, ReflectionType, StringLiteralType, TupleType, Type, TypeOperatorType, TypeParameterType, UnionType } from 'typedoc/dist/lib/models';
+import ReflectionFormatter from './reflection-formatter';
 
 interface TypeFormatterOptions {
   isOptionalType?: boolean;
@@ -29,7 +29,7 @@ export default class TypeFormatter {
 
     if (type.type === 'indexedAccess') {
       const indexType = type as IndexedAccessType;
-      return `\{ [key: ${TypeFormatter.format(indexType.indexType)}]: ${TypeFormatter.format(indexType.objectType)} \}`;
+      return `{ [key: ${TypeFormatter.format(indexType.indexType)}]: ${TypeFormatter.format(indexType.objectType)} }`;
     }
 
     if (type.type === 'intersection') {

@@ -22,7 +22,7 @@ export class MyList<T> extends Array<T> {
     return new c();
   }
 
-  private wrap(): Array<T[]> {
+  public wrap(): Array<T[]> {
     return [this];
   }
 }

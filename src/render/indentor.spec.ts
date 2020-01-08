@@ -1,4 +1,4 @@
-import Indentor from "./indentor";
+import Indentor from './indentor';
 
 it('should indent single space', () => {
   const indentor = new Indentor(' ');

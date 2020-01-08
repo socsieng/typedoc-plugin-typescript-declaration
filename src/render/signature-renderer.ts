@@ -1,7 +1,7 @@
-import ReflectionRenderer from "./reflection-renderer";
-import { SignatureReflection, ReflectionKind } from "typedoc/dist/lib/models";
-import TypeFormatter from "./type-formatter";
-import ReflectionFormatter from "./reflection-formatter";
+import { ReflectionKind, SignatureReflection } from 'typedoc/dist/lib/models';
+import ReflectionFormatter from './reflection-formatter';
+import ReflectionRenderer from './reflection-renderer';
+import TypeFormatter from './type-formatter';
 
 export default abstract class SignatureRenderer extends ReflectionRenderer {
   protected renderTypeParameters(method: SignatureReflection): string {

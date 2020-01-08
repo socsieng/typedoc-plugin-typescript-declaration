@@ -1,4 +1,4 @@
-import Version from "./version";
+import Version from './version';
 
 describe('Parse', () => {
   test.each([

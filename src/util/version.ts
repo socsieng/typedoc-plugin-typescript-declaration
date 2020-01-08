@@ -1,4 +1,4 @@
-const VersionExpression = /^(\d)+(\.(\d+))?(\.(\d+))?(\.(\d+))?(-([\w][\w.\-]*))?$/;
+const VersionExpression = /^(\d)+(\.(\d+))?(\.(\d+))?(\.(\d+))?(-([\w][\w.-]*))?$/;
 
 export default class Version {
   readonly major: number;

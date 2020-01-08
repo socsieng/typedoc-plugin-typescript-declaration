@@ -1,6 +1,6 @@
-import { Reflection, ProjectReflection } from "typedoc/dist/lib/models";
-import Version from "../util/version";
-import { CommentPlugin } from "typedoc/dist/lib/converter/plugins/CommentPlugin";
+import { ProjectReflection, Reflection } from 'typedoc/dist/lib/models';
+import { CommentPlugin } from 'typedoc/dist/lib/converter/plugins/CommentPlugin';
+import Version from '../util/version';
 
 export default class VersionFilter {
   public isIncluded(reflection: Reflection, maxVersion: Version) {

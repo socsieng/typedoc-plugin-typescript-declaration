@@ -1,5 +1,5 @@
-import ContainerRenderer from "./container-renderer";
-import { ReflectionKind, Comment, DeclarationReflection, IntrinsicType, SignatureReflection, ParameterReflection, ReflectionFlag } from "typedoc/dist/lib/models";
+import { Comment, DeclarationReflection, IntrinsicType, ParameterReflection, ReflectionFlag, ReflectionKind, SignatureReflection } from 'typedoc/dist/lib/models';
+import ContainerRenderer from './container-renderer';
 
 it('should render basic class', () => {
   const renderer = new ContainerRenderer('class');
