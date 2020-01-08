@@ -17,6 +17,20 @@ export default class MyClass {
     return '';
   }
 
+  /**
+   * @since 1.0
+   */
+  existingMethod(): string {
+    return '';
+  }
+
+  /**
+   * @since 2.0
+   */
+  newMethod(): string {
+    return '';
+  }
+
   public get instanceId(): number {
     return this._instanceId;
   }

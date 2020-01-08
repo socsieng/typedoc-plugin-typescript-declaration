@@ -1,9 +1,9 @@
 import { Component } from 'typedoc/dist/lib/output/components';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
 import { Converter, Context } from 'typedoc/dist/lib/converter';
-import { Reflection, CommentTag, DeclarationReflection } from 'typedoc/dist/lib/models';
+import { Reflection } from 'typedoc/dist/lib/models';
 import Version from './util/version';
-import { CommentPlugin } from 'typedoc/dist/lib/converter/plugins/CommentPlugin';
+import VersionFilter from './convert/version-filter';
 
 @Component({ name: 'filter-converter' })
 export class FilterConverter extends ConverterComponent {
@@ -33,29 +33,15 @@ export class FilterConverter extends ConverterComponent {
   private onBeginResolve(context: Context) {
     if (this._excluded) {
       const project = context.project;
-      CommentPlugin.removeReflections(project, this._excluded);
+      VersionFilter.instance().removeReflections(project, this._excluded);
     }
   }
 
   private onDeclaration(context: Context, reflection: Reflection) {
     if (!this._maxVersion) return;
 
-    const tags = reflection.comment?.tags;
-    if (tags) {
-      const since = tags.find(t => t.tagName === 'since');
-      if (since && since.text) {
-        try {
-          const version = Version.parse(since.text.trim());
-
-          const remove = this._maxVersion.compare(version) < 0;
-
-          if (remove) {
-            this._excluded!.push(reflection);
-          }
-        } catch(err) {
-          console.log(err);
-        }
-      }
+    if (!VersionFilter.instance().isIncluded(reflection, this._maxVersion)) {
+      this._excluded!.push(reflection);
     }
   }
 }

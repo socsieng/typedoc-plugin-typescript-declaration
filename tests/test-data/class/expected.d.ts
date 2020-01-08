@@ -13,6 +13,11 @@ declare class MyClass {
 
   toString(): string;
 
+  /**
+   * @since 1.0
+   */
+  existingMethod(): string;
+
   public get instanceId(): number;
   public set instanceId(value: number);
 }

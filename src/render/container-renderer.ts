@@ -49,6 +49,7 @@ export default class ContainerRenderer extends ReflectionRenderer {
         })
         .sort(propertySorter(node => node.id))
         .map(node => ReflectionFormatter.instance().render(node, ';'))
+        .filter(s => s)
         .join(['class', 'module', 'interface'].find(type => type === this._type) ? '\n\n' : '\n');
 
       const indent = this._indentor.getIndent(1);
