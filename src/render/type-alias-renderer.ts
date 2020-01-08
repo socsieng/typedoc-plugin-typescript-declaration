@@ -9,7 +9,7 @@ export default class TypeAliasRenderer extends ReflectionRenderer {
   public render(node: Reflection, terminationCharacter?: string): string {
     const lines: string[] = [];
     const declarationParts: string[] = [
-      this.isTop(node) ? 'declare' : '',
+      this.isTop(node) ? 'declare' : node.flags.isExported ? 'export' : '',
       ...this.getModifiers(node),
       'type',
       node.name,

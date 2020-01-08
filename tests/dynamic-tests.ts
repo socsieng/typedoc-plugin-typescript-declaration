@@ -5,14 +5,15 @@ import { Application } from 'typedoc/dist/lib/application';
 import join from '../src/util/join';
 import { CallbackLogger } from 'typedoc/dist/lib/utils';
 import ReflectionFormatter from '../src/render/reflection-formatter';
-import { ReflectionKind } from 'typedoc/dist/lib/models';
 import mkdir from 'make-dir';
 import VersionFilter from '../src/convert/version-filter';
 import Version from '../src/util/version';
 
 const writeOutput = process.env['DEBUG_MODE'] !== 'none';
 
-const folders = glob.sync('test-data/**/*input.ts', { cwd: __dirname })
+const folders = ['test-data/**/*input.ts', 'test-data/**/*input.d.ts', 'test-data/**/*exact.d.ts']
+  .map(f => glob.sync(f, { cwd: __dirname }))
+  .reduce((allFiles, files) => [...allFiles, ...files], [])
   .map(f => [f]);
 
 describe('Dynamic test suite', () => {
@@ -27,8 +28,8 @@ describe('Dynamic test suite', () => {
     typedoc.logger = new CallbackLogger((message: string) => { logOutput.push(message) });
 
     const project = typedoc.convert([path.join(__dirname, testFile)]);
-    const basename = testFile.replace(/input\.ts$/i, '');
-    const expectedFile = `${basename}expected.d.ts`;
+    const basename = testFile.replace(/input(\.d)?\.ts$/i, '');
+    const expectedFile = /exact\.d\.ts$/i.test(testFile) ? testFile : `${basename}expected.d.ts`;
     const expectedOutput = fs.readFileSync(path.join(__dirname, expectedFile), 'utf8');
 
     const formatter = ReflectionFormatter.instance();
