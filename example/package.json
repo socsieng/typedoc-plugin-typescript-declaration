@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "doc": "typedoc --out docs --mode file --declarationFile docs/index.d.ts",
+    "declaration": "typedoc --mode file --declarationOnly --declarationFile docs/index.d.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

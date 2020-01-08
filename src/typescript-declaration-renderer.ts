@@ -4,6 +4,7 @@ import join from './util/join';
 import ReflectionFormatter from './render/reflection-formatter';
 import * as fs from 'fs';
 import * as path from 'path';
+import mkdir from 'make-dir';
 
 @Component({ name: 'typescript-declaration-renderer' })
 export class TypeScriptDeclarationRenderer extends RendererComponent {
@@ -21,6 +22,13 @@ export class TypeScriptDeclarationRenderer extends RendererComponent {
 
     if (file) {
       file = path.resolve(process.cwd(), file);
+
+      const directory = path.dirname(file);
+
+      if (!fs.existsSync(directory)) {
+        mkdir.sync(directory);
+      }
+
       const result = join('\n\n', event.project.children!
         .map(r => formatter.render(r)));
 
