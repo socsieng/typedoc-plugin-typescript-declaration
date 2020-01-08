@@ -1,5 +1,5 @@
 import { Reflection, ReflectionKind } from 'typedoc/dist/lib/models';
-import Renderer from './renderer';
+import ReflectionRenderer from './reflection-renderer';
 import ContainerRenderer from './container-renderer';
 import MethodRenderer from './method-renderer';
 import CallSignatureRenderer from './call-signature-renderer';
@@ -16,7 +16,7 @@ import ParameterRenderer from './parameter-renderer';
 import TypeParameterRenderer from './type-parameter-renderer';
 
 export default class ReflectionFormatter {
-  private _renderers: { [kind: number]: Renderer } = {};
+  private _renderers: { [kind: number]: ReflectionRenderer } = {};
 
   constructor() {
     this._renderers[ReflectionKind.ExternalModule] = new ContainerRenderer('module');

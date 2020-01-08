@@ -1,7 +1,7 @@
 /**
  * This is a class called MyClass
  */
-class MyClass {
+declare class MyClass {
   /**
    * This counter keeps track of the number of times the class has been instantiated
    */

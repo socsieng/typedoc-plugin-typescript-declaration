@@ -1,14 +1,22 @@
 {
   "name": "typedoc-plugin-typescript-declaration",
   "version": "0.0.1",
-  "description": "",
+  "description": "Typedoc plugin to render to typescript declaration file",
   "main": "dist/index.js",
   "scripts": {
     "start": "ts-node src/index",
     "build": "rimraf dist && rollup -c",
     "test:watch": "jest --watch",
-    "test": "DEBUG_MODE=output jest --verbose"
+    "doc": "typedoc --out output/docs --includeDeclarations --mode file --excludeExternals src/index.ts",
+    "test": "jest --verbose"
   },
+  "keywords": [
+    "typedocplugin",
+    "typedoc",
+    "typescript",
+    "declaration",
+    "d.ts"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {

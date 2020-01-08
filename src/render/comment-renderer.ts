@@ -1,4 +1,4 @@
-import Renderer from "./renderer";
+import ReflectionRenderer from "./reflection-renderer";
 import { Reflection, SignatureReflection } from "typedoc/dist/lib/models";
 import join from '../util/join';
 

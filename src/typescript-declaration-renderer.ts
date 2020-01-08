@@ -1,18 +1,12 @@
 import { Component, RendererComponent } from 'typedoc/dist/lib/output/components';
 import { RendererEvent } from 'typedoc/dist/lib/output/events';
-import { Reflection, ReflectionKind } from 'typedoc/dist/lib/models';
-import Renderer from './render/renderer';
-import ContainerRenderer from './render/container-renderer';
+import join from './util/join';
+import ReflectionFormatter from './render/reflection-formatter';
+import * as fs from 'fs';
+import * as path from 'path';
 
-const renderers: { [kind: number]: Renderer } = {};
-renderers[ReflectionKind.Class] = new ContainerRenderer('class');
-renderers[ReflectionKind.Enum] = new ContainerRenderer('enum');
-renderers[ReflectionKind.Interface] = new ContainerRenderer('interface');
-
-@Component({ name: 'render-component'})
-export default class TypeScriptDeclarationRenderer extends RendererComponent {
-  private _renders: string[] = [];
-
+@Component({ name: 'typescript-declaration-renderer' })
+export class TypeScriptDeclarationRenderer extends RendererComponent {
   protected initialize() {
     this.listenTo(this.owner, {
       [RendererEvent.BEGIN]: this.onRenderBegin,
@@ -20,13 +14,21 @@ export default class TypeScriptDeclarationRenderer extends RendererComponent {
   }
 
   private onRenderBegin(event: RendererEvent) {
-    const reflections = event.project.reflections;
+    const formatter = ReflectionFormatter.instance();
+    const options = this.application.options;
 
-    Object.values(reflections).forEach(reflection => {
-      this.render(reflection);
-    });
-  }
+    let file = options.getValue('declarationFile') as string;
 
-  private render(reflection: Reflection) {
+    if (file) {
+      file = path.resolve(process.cwd(), file);
+      const result = join('\n\n', event.project.children!
+        .map(r => formatter.render(r)));
+
+      fs.writeFileSync(file, result);
+
+      console.log(`TypeScript definition file written to ${file}.`);
+    } else {
+      console.log('No TypeScript definition file written. Use the --declarationFile option to create a definition file');
+    }
   }
 }

@@ -1,9 +1,9 @@
-import Renderer from "./renderer";
+import ReflectionRenderer from "./reflection-renderer";
 import { Reflection, DeclarationReflection, ReflectionFlag } from "typedoc/dist/lib/models";
 import ReflectionFormatter from "./reflection-formatter";
 import join from "../util/join";
 
-export default class AccessorRenderer extends Renderer {
+export default class AccessorRenderer extends ReflectionRenderer {
   public render(node: Reflection, terminationCharacter?: string): string {
     const method = node as DeclarationReflection;
     return join(

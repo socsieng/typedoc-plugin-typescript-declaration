@@ -1,14 +1,20 @@
-import Renderer from "./renderer";
-import { Reflection, DeclarationReflection, ReflectionType } from "typedoc/dist/lib/models";
+import ReflectionRenderer from "./reflection-renderer";
+import { Reflection, DeclarationReflection, ReflectionType, ReflectionKind } from "typedoc/dist/lib/models";
 import ReflectionFormatter from "./reflection-formatter";
 import TypeFormatter from "./type-formatter";
 import join from "../util/join";
 import { propertySorter } from "../util/sort";
 
-export default class TypeAliasRenderer extends Renderer {
+export default class TypeAliasRenderer extends ReflectionRenderer {
   public render(node: Reflection, terminationCharacter?: string): string {
     const lines: string[] = [];
-    const declarationParts: string[] = [...this.getModifiers(node), 'type', node.name, '='];
+    const declarationParts: string[] = [
+      this.isTop(node) ? 'declare' : '',
+      ...this.getModifiers(node),
+      'type',
+      node.name,
+      '='
+    ];
 
     if (node.comment)
     {

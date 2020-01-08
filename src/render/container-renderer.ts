@@ -1,11 +1,11 @@
-import Renderer from "./renderer";
+import ReflectionRenderer from "./reflection-renderer";
 import { Reflection, DeclarationReflection, ReflectionKind } from "typedoc/dist/lib/models";
 import join from '../util/join';
 import TypeFormatter from "./type-formatter";
 import ReflectionFormatter from "./reflection-formatter";
 import { propertySorter } from "../util/sort";
 
-export default class ContainerRenderer extends Renderer {
+export default class ContainerRenderer extends ReflectionRenderer {
   private _type: string;
 
   constructor(type: string) {
@@ -16,7 +16,10 @@ export default class ContainerRenderer extends Renderer {
 
   public render(node: Reflection): string {
     const lines: string[] = [];
-    const declarationParts: string[] = [...this.getModifiers(node), this._type, `${node.name}${this.renderTypeParameters(node as DeclarationReflection)}`];
+    const declarationParts: string[] = [
+      this.isTop(node) ? 'declare' : '',
+      ...this.getModifiers(node), this._type, `${node.name}${this.renderTypeParameters(node as DeclarationReflection)}`
+    ];
 
     if (node.comment)
     {

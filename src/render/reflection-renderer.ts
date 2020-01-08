@@ -1,8 +1,8 @@
-import { Reflection } from "typedoc/dist/lib/models";
+import { Reflection, ReflectionKind } from "typedoc/dist/lib/models";
 import Indentor from "./indentor";
 import CommentRenderer from "./comment-renderer";
 
-export default abstract class Renderer {
+export default abstract class ReflectionRenderer {
   protected _indentor: Indentor;
   protected _commentRenderer: CommentRenderer;
 
@@ -51,5 +51,9 @@ export default abstract class Renderer {
 
   protected encodeName(name: string): string {
     return /[^\w]/.test(name) ? JSON.stringify(name) : name;
+  }
+
+  protected isTop(node: Reflection): boolean {
+    return !node.parent || (node.parent && (node.parent!.kind === ReflectionKind.ExternalModule || node.parent!.kind === ReflectionKind.Global));
   }
 }

@@ -1,9 +1,9 @@
-import Renderer from "./renderer";
+import ReflectionRenderer from "./reflection-renderer";
 import { Reflection, ParameterReflection, ReflectionType } from "typedoc/dist/lib/models";
 import join from '../util/join';
 import TypeFormatter from "./type-formatter";
 
-export default class ParameterRenderer extends Renderer {
+export default class ParameterRenderer extends ReflectionRenderer {
   public render(node: Reflection): string {
     const p = node as ParameterReflection;
     let declaration = `${p.flags.isRest ? '...' : ''}${this.getName(p)}${p.flags.isOptional ? '?' : ''}${p.type ? `: ${TypeFormatter.format(p.type, {

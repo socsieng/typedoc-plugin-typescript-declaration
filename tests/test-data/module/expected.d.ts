@@ -1,4 +1,4 @@
-module test {
+declare module test {
   type StatusTypes = {
     /**
      * Success

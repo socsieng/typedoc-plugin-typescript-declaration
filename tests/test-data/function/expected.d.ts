@@ -1,4 +1,4 @@
-module test {
+declare module test {
   /**
    * Adds two numbers together
    */

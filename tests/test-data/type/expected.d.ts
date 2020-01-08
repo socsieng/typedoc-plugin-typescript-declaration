@@ -1,4 +1,4 @@
-type StatusTypes = {
+declare type StatusTypes = {
   /**
    * Success
    */

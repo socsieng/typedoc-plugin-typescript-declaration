@@ -1,4 +1,4 @@
-class MyList<T> extends Array<T> {
+declare class MyList<T> extends Array<T> {
   public get(index: number): T;
 
   public getPlus1(index: number): T | undefined;

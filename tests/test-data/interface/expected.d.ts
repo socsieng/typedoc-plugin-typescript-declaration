@@ -1,7 +1,7 @@
 /**
  * Options interface
  */
-interface Options {
+declare interface Options {
   onClick?: (event?: Event) => void;
 
   /**

@@ -10,7 +10,7 @@ it('should render basic class', () => {
   expect(renderer.render(node)).toEqual(`/**
  * Signature short text
  */
-class MyClass {
+declare class MyClass {
 }`
   );
 });
@@ -19,7 +19,7 @@ it('should render basic class without comment', () => {
   const renderer = new ContainerRenderer('class');
   const node = new DeclarationReflection('MyClass', ReflectionKind.Class);
 
-  expect(renderer.render(node)).toEqual(`class MyClass {
+  expect(renderer.render(node)).toEqual(`declare class MyClass {
 }`
   );
 });
@@ -36,7 +36,7 @@ it('should render inherited class', () => {
   expect(renderer.render(node)).toEqual(`/**
  * Signature short text
  */
-class MyClass extends Object {
+declare class MyClass extends Object {
 }`
   );
 });
@@ -55,7 +55,7 @@ it('should render multiple inherited class', () => {
   expect(renderer.render(node)).toEqual(`/**
  * Signature short text
  */
-class MyClass extends Object implements Other, Another {
+declare class MyClass extends Object implements Other, Another {
 }`
   );
 });
@@ -88,7 +88,7 @@ it('should render class with method', () => {
   expect(renderer.render(node)).toEqual(`/**
  * Signature short text
  */
-class MyClass {
+declare class MyClass {
   create(name: string): void;
 }`
   );
@@ -124,7 +124,7 @@ it('should render class with method with comment', () => {
   expect(renderer.render(node)).toEqual(`/**
  * Signature short text
  */
-class MyClass {
+declare class MyClass {
   /**
    * Short method comment
    */
@@ -163,7 +163,7 @@ it('should render class with method overloads', () => {
     sig2,
   ];
 
-  expect(renderer.render(node)).toEqual(`class MyClass {
+  expect(renderer.render(node)).toEqual(`declare class MyClass {
   create(name: string): void;
   create(num: number): any;
 }`
@@ -191,7 +191,7 @@ it('should render class with constructor', () => {
     sig1,
   ];
 
-  expect(renderer.render(node)).toEqual(`class MyClass {
+  expect(renderer.render(node)).toEqual(`declare class MyClass {
   constructor(name: string);
 }`
   );
@@ -220,7 +220,7 @@ it('should render class with private constructor', () => {
     sig1,
   ];
 
-  expect(renderer.render(node)).toEqual(`class MyClass {
+  expect(renderer.render(node)).toEqual(`declare class MyClass {
   private constructor(name: string);
 }`
   );

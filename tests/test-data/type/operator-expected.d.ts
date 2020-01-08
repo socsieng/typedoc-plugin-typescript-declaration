@@ -1,4 +1,4 @@
-module test {
+declare module test {
   type StatusType = keyof StatusTypes;
 
   type StatusTypes = {

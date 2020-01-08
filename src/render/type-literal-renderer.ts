@@ -1,9 +1,9 @@
-import Renderer from "./renderer";
+import ReflectionRenderer from "./reflection-renderer";
 import { Reflection, DeclarationReflection } from "typedoc/dist/lib/models";
 import ReflectionFormatter from "./reflection-formatter";
 import join from "../util/join";
 
-export default class TypeLiteralRenderer extends Renderer {
+export default class TypeLiteralRenderer extends ReflectionRenderer {
   public render(node: Reflection): string {
     const lines: string[] = [];
 
