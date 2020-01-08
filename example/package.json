@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "doc": "typedoc --out docs --declarationFile docs/index.d.ts",
+    "doc": "typedoc --out docs --mode file --declarationFile docs/index.d.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

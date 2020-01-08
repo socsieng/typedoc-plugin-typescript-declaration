@@ -22,6 +22,7 @@ describe('Dynamic test suite', () => {
       tsconfig: 'tsconfig.json',
       includeDeclarations: true,
       excludeExternals: true,
+      mode: 'file',
     });
     typedoc.logger = new CallbackLogger((message: string) => { logOutput.push(message) });
 
@@ -47,10 +48,7 @@ describe('Dynamic test suite', () => {
         fs.writeFileSync(outputJsonFile, JSON.stringify(project.toObject(), null, '  '));
       }
 
-      const result = join('\n', project.children!
-        .map(c => c.kind === ReflectionKind.ExternalModule ? c.children! : [c])
-        .reduce((prev, item) => [...prev, ...item], [])
-        .map(r => formatter.render(r)));
+      const result = join('\n', project.children!.map(r => formatter.render(r)));
 
       if (writeOutput) {
         fs.writeFileSync(outputDeclarationFile, result);

@@ -26,11 +26,9 @@ export default abstract class ReflectionRenderer {
 
     if (flags.isPublic || parentFlags?.isPublic) {
       modifiers.push('public');
-    }
-    if (flags.isProtected || parentFlags?.isProtected) {
+    } else if (flags.isProtected || parentFlags?.isProtected) {
       modifiers.push('protected');
-    }
-    if (flags.isPrivate || parentFlags?.isPrivate) {
+    } else if (flags.isPrivate || parentFlags?.isPrivate) {
       modifiers.push('private');
     }
 
@@ -54,6 +52,6 @@ export default abstract class ReflectionRenderer {
   }
 
   protected isTop(node: Reflection): boolean {
-    return !node.parent || (node.parent && (node.parent!.kind === ReflectionKind.ExternalModule || node.parent!.kind === ReflectionKind.Global));
+    return !node.parent || (node.parent && node.parent!.kind === ReflectionKind.Global);
   }
 }
