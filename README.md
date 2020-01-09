@@ -42,9 +42,9 @@ npx typedoc-plugin-typescript-declaration --declarationFile index.d.ts
 npm install --global typedoc-plugin-typescript-declaration
 
 # generate type declaration file with max version 2.0
-node_modules/.bin/typedoc-declaration --declarationFile index.d.ts --maxVersion 2.0
+node_modules/.bin/typedoc-declare --declarationFile index.d.ts --maxVersion 2.0
 # when installed globally
-typedoc-declaration --declarationFile index.d.ts --maxVersion 2.0
+typedoc-declare --declarationFile index.d.ts --maxVersion 2.0
 ```
 
 ## Why?
