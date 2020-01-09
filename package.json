@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Typedoc plugin to render to typescript declaration file",
   "main": "dist/index.js",
+  "bin": {
+    "typedoc-declare": "bin/typedoc-declare"
+  },
   "scripts": {
     "start": "ts-node src/index",
     "build": "rimraf dist && rollup -c",

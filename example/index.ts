@@ -5,6 +5,10 @@ namespace Example {
   }
 
   enum Diet {
+    /**
+     * @since 2.1
+     */
+    unkown = 0,
     plant = 1,
     animal = 2,
     everything = 3,
@@ -27,6 +31,9 @@ namespace Example {
     diet = Diet.plant;
   }
 
+  /**
+   * @since 2.1
+   */
   export class Farm {
     animals: Animal[] = [];
   }

@@ -34,7 +34,7 @@ module.exports = (PluginHost: Application) => {
     throw new Error('--declarationFile file must be specified when using the --declarationOnly option');
   }
 
-  if (options.declarationOnly) {
+  if (options.declarationOnly || !options.out) {
     app.converter.addComponent('noop-theme', new NoopThemeComponent(app.converter));
   }
 

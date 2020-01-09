@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+const cli = require('typedoc/dist/lib/cli');
+new cli.CliApplication();

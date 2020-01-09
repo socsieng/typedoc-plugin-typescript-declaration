@@ -10,15 +10,36 @@ npm install typedoc typedoc-plugin-typescript-declaration --save-dev
 
 ## Usage
 
+Used as a plugin with Typedoc:
+
 ```sh
-# write declaration file
+# generate Typedoc documentation as well as the type declaration
 node_modules/.bin/typedoc --out docs --declarationFile docs/index.d.ts
+
+# generate type declaration file without Typedoc documentation (omit --out, or inclue --declarationOnly)
+node_modules/.bin/typedoc --declarationFile docs/index.d.ts
+
+# generate type declaration file for a specific file
+# node_modules/.bin/typedoc --declarationFile <output-file> [file]
+node_modules/.bin/typedoc --declarationFile docs/index.d.ts src/index.ts
 
 # write declaration file for types with a max version of 1.0
 node_modules/.bin/typedoc --out docs/v1.0 --declarationFile docs/v1.0/index.d.ts --maxVersion 1.0
 
 # write declaration file for types with a max version of 2.0
 node_modules/.bin/typedoc --out docs/v2.0 --declarationFile docs/v2.0/index.d.ts --maxVersion 2.0
+```
+
+Used as a stand alone cli (works with the same options above):
+
+```sh
+# optionally install this package globally
+npm install --global typedoc-plugin-typescript-declaration
+
+# generate type declaration file with max version 2.0
+node_modules/.bin/typedoc-declaration --declarationFile index.d.ts --maxVersion 2.0
+# when installed globally
+typedoc-declaration --declarationFile index.d.ts --maxVersion 2.0
 ```
 
 ## Why?
@@ -57,8 +78,8 @@ Command:
 
 ```sh
 # write declaration file for types with a max version of 1.0
-node_modules/.bin/typedoc --out docs/v1.0 --declarationFile docs/v1.0/index.d.ts --maxVersion 1.0
+node_modules/.bin/typedoc --declarationFile docs/v1.0/index.d.ts --maxVersion 1.0
 
 # write declaration file for types with a max version of 2.0
-node_modules/.bin/typedoc --out docs/v2.0 --declarationFile docs/v2.0/index.d.ts --maxVersion 2.0
+node_modules/.bin/typedoc --declarationFile docs/v2.0/index.d.ts --maxVersion 2.0
 ```

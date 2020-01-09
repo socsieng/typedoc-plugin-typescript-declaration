@@ -3,6 +3,7 @@ import { Component } from 'typedoc/dist/lib/output/components';
 import { Converter } from 'typedoc/dist/lib/converter';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
 import { Renderer } from 'typedoc/dist/lib/output/renderer';
+import { SourceFileMode } from 'typedoc/dist/lib/converter/nodes/block';
 
 @Component({ name: 'noop-theme' })
 export class NoopThemeComponent extends ConverterComponent {
@@ -25,6 +26,11 @@ export class NoopThemeComponent extends ConverterComponent {
     if (!options.getValue('out')) {
       options.setValue('out', '.');
       options.setValue('disableOutputCheck', true);
+
+      const rawOptions = options.getRawValues();
+      if (rawOptions.mode === undefined) {
+        options.setValue('mode', SourceFileMode.File);
+      }
     }
   }
 }
