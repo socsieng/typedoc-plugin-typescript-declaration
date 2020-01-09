@@ -11,18 +11,18 @@ export default class CommentRenderer {
       lines.push('/**');
       if (comment.shortText) {
         sections.push(
-          comment.shortText.replace(/\n$/g, '')
+          comment.shortText.replace(/\n$/, '')
             .split(/\n/gm)
-            .map(l => ` * ${l}`)
+            .map(l => ` * ${l}`.trimRight())
             .join('\n')
         );
       }
 
       if (comment.text) {
         sections.push(
-          comment.text.replace(/\n$/g, '')
+          comment.text.replace(/\n$/, '')
             .split(/\n/gm)
-            .map(l => ` * ${l}`)
+            .map(l => ` * ${l}`.trimRight())
             .join('\n')
         );
       }
@@ -31,9 +31,12 @@ export default class CommentRenderer {
       if (signature.parameters) {
         const paramComments = signature.parameters
           .filter(p => p.comment?.text)
-          .map(p => ` * @param ${join(' ', p.name,
-            p.comment?.text?.replace(/\n$/m, '')
-            ?.replace(/\n/gm, '\n * ') || '')}`)
+          .map(p => {
+            const [firstLine, ...remainingLines] = p.comment!.text!.replace(/\n$/, '').split(/\n/gm);
+            return ` * @param ${join(' ', p.name, firstLine || '')}${remainingLines?.length
+              ? `\n${remainingLines.map(l => ` * ${l}`.trimRight()).join('\n')}`
+              : ''}`;
+          })
           .join('\n');
 
         if (paramComments.length) {
@@ -41,7 +44,7 @@ export default class CommentRenderer {
         }
       }
 
-      if (comment.tags) {
+      if (comment.tags?.length) {
         sections.push(
           comment.tags
             .map(t => ` * ${join(' ', `@${t.tagName}`, t.paramName, t.text?.replace(/\n$/m, ''))}`)
