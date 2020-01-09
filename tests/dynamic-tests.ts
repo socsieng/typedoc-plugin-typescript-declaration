@@ -28,7 +28,7 @@ describe('Dynamic test suite', () => {
     typedoc.logger = new CallbackLogger((message: string) => { logOutput.push(message) });
 
     const project = typedoc.convert([path.join(__dirname, testFile)]);
-    const basename = testFile.replace(/input(\.d)?\.ts$/i, '');
+    const basename = testFile.replace(/(input|exact)(\.d)?\.ts$/i, '');
     const expectedFile = /exact\.d\.ts$/i.test(testFile) ? testFile : `${basename}expected.d.ts`;
     const expectedOutput = fs.readFileSync(path.join(__dirname, expectedFile), 'utf8');
 
@@ -36,8 +36,9 @@ describe('Dynamic test suite', () => {
 
     if (project) {
       const ouputBase = path.resolve(__dirname, '../output');
-      const outputJsonFile = `${path.join(ouputBase, basename)}output.json`;
-      const outputDeclarationFile = `${path.join(ouputBase, basename)}output.d.ts`;
+      const outputSuffix = /exact\.d\.ts$/i.test(testFile) ? 'exact' : 'output';
+      const outputJsonFile = `${path.join(ouputBase, basename)}${outputSuffix}.json`;
+      const outputDeclarationFile = `${path.join(ouputBase, basename)}${outputSuffix}.d.ts`;
       const outputDirectory = path.dirname(outputJsonFile);
 
       const reflectionsToRemove = VersionFilter.instance().filterReflections(Object.values(project.reflections), Version.parse('1.0'));

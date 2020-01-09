@@ -51,6 +51,10 @@ export default class TypeFormatter {
         declaration += `<${refType.typeArguments.map(t => TypeFormatter.format(t)).join(', ')}>`;
       }
 
+      if (declaration === '__type') {
+        declaration = '{}';
+      }
+
       return declaration;
     }
 
