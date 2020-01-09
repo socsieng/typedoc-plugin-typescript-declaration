@@ -35,6 +35,9 @@ node_modules/.bin/typedoc --out docs/v2.0 --declarationFile docs/v2.0/index.d.ts
 Used as a stand alone cli (works with the same options above):
 
 ```sh
+# using npx
+npx typedoc-plugin-typescript-declaration --declarationFile index.d.ts
+
 # optionally install this package globally
 npm install --global typedoc-plugin-typescript-declaration
 
