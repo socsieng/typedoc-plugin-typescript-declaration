@@ -1,3 +1,6 @@
+// work-around to fix test
+require('./project-renderer');
+
 import { Comment, DeclarationReflection, IntrinsicType, ParameterReflection, ReflectionFlag, ReflectionKind, SignatureReflection } from 'typedoc/dist/lib/models';
 import ContainerRenderer from './container-renderer';
 

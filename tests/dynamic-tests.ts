@@ -1,12 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import ReflectionFormatter, { ReflectionSortFlags } from '../src/render/reflection-formatter';
 import { Application } from 'typedoc/dist/lib/application';
 import { CallbackLogger } from 'typedoc/dist/lib/utils';
-import ReflectionFormatter from '../src/render/reflection-formatter';
 import Version from '../src/util/version';
 import VersionFilter from '../src/convert/version-filter';
 import glob from 'glob';
-import join from '../src/util/join';
 import mkdir from 'make-dir';
 
 const writeOutput = process.env['DEBUG_MODE'] !== 'none';
@@ -32,6 +31,7 @@ describe('Dynamic test suite', () => {
     const expectedFile = /exact\.d\.ts$/i.test(testFile) ? testFile : `${basename}expected.d.ts`;
     const expectedOutput = fs.readFileSync(path.join(__dirname, expectedFile), 'utf8');
 
+    ReflectionFormatter.sortOption = ReflectionSortFlags.tag;
     const formatter = ReflectionFormatter.instance();
 
     if (project) {
@@ -50,7 +50,7 @@ describe('Dynamic test suite', () => {
         fs.writeFileSync(outputJsonFile, JSON.stringify(project.toObject(), null, '  '));
       }
 
-      const result = join('\n', project.children!.map(r => formatter.render(r)));
+      const result = formatter.render(project);
 
       if (writeOutput) {
         fs.writeFileSync(outputDeclarationFile, result);

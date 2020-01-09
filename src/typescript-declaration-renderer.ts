@@ -3,7 +3,6 @@ import * as path from 'path';
 import { Component, RendererComponent } from 'typedoc/dist/lib/output/components';
 import ReflectionFormatter from './render/reflection-formatter';
 import { RendererEvent } from 'typedoc/dist/lib/output/events';
-import join from './util/join';
 import mkdir from 'make-dir';
 
 @Component({ name: 'typescript-declaration-renderer' })
@@ -41,8 +40,7 @@ export class TypeScriptDeclarationRenderer extends RendererComponent {
         mkdir.sync(directory);
       }
 
-      const result = join('\n\n', event.project.children!
-        .map(r => formatter.render(r)));
+      const result = formatter.render(event.project);
 
       fs.writeFileSync(file, result);
 

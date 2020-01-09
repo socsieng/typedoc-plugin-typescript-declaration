@@ -54,4 +54,8 @@ export default abstract class ReflectionRenderer {
   protected isTop(node: Reflection): boolean {
     return !node.parent || (node.parent && node.parent!.kind === ReflectionKind.Global);
   }
+
+  protected getTag(node: Reflection, tag: string) {
+    return node.comment?.tags?.find(t => t.tagName === tag);
+  }
 }

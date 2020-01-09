@@ -1,4 +1,5 @@
 import { ParameterHint, ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
+import ReflectionFormatter, { ReflectionSortFlags, sortMapping } from './render/reflection-formatter';
 import { Application } from 'typedoc/dist/lib/application';
 import { FilterConverter } from './filter-converter';
 import { NoopThemeComponent } from './noop-theme-component';
@@ -21,6 +22,14 @@ module.exports = (PluginHost: Application) => {
   });
 
   app.options.addDeclaration({
+    name: 'sortOption',
+    type: ParameterType.Map,
+    help: 'Sort types in declaration file by name instead of the typedoc default',
+    defaultValue: ReflectionSortFlags.none,
+    map: sortMapping,
+  });
+
+  app.options.addDeclaration({
     name: 'maxVersion',
     type: ParameterType.String,
     help: 'The maxminum version number to include in the filter (compares against the `@since` tag)',
@@ -37,6 +46,8 @@ module.exports = (PluginHost: Application) => {
   if (options.declarationOnly || !options.out) {
     app.converter.addComponent('noop-theme', new NoopThemeComponent(app.converter));
   }
+
+  ReflectionFormatter.sortOption = app.options.getValue('sortOption');
 
   app.renderer.addComponent('typescript-declaration-renderer', new TypeScriptDeclarationRenderer(app.renderer));
   app.converter.addComponent('filter-converter', new FilterConverter(app.converter));

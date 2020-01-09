@@ -8,6 +8,7 @@ import FunctionRenderer from './function-renderer';
 import GetSignatureRenderer from './get-signature-renderer';
 import MethodRenderer from './method-renderer';
 import ParameterRenderer from './parameter-renderer';
+import ProjectRenderer from './project-renderer';
 import PropertyRenderer from './property-renderer';
 import ReflectionRenderer from './reflection-renderer';
 import SetSignatureRenderer from './set-signature-renderer';
@@ -15,10 +16,35 @@ import TypeAliasRenderer from './type-alias-renderer';
 import TypeLiteralRenderer from './type-literal-renderer';
 import TypeParameterRenderer from './type-parameter-renderer';
 
+/**
+ * Sort flags
+ */
+export enum ReflectionSortFlags {
+  none = 0,
+  /**
+   * @internal
+   */
+  tag = 1,
+  container = 2,
+  leaf = 4,
+  all = 7,
+}
+
+export const sortMapping: { [key: string]: ReflectionSortFlags | undefined } = {
+  none: ReflectionSortFlags.none,
+  tag: ReflectionSortFlags.tag,
+  container: ReflectionSortFlags.container,
+  leaf: ReflectionSortFlags.leaf,
+  all: ReflectionSortFlags.all,
+};
+
 export default class ReflectionFormatter {
+  public static sortOption: ReflectionSortFlags = ReflectionSortFlags.none;
+
   private _renderers: { [kind: number]: ReflectionRenderer } = {};
 
   constructor() {
+    this._renderers[ReflectionKind.Global] = new ProjectRenderer();
     this._renderers[ReflectionKind.ExternalModule] = new ContainerRenderer('module');
     this._renderers[ReflectionKind.Module] = new ContainerRenderer('module');
     this._renderers[ReflectionKind.Class] = new ContainerRenderer('class');
