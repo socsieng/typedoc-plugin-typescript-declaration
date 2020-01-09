@@ -6,13 +6,21 @@
   "bin": {
     "typedoc-declare": "bin/typedoc-declare"
   },
+  "repository": {
+    "url": "https://github.com/socsieng/typedoc-plugin-typescript-declaration"
+  },
   "scripts": {
-    "start": "ts-node src/index",
+    "prepublishOnly": "npm run ci",
+    "ci": "DEBUG_MODE=none jest --ci && npm run build",
     "build": "rimraf dist && rollup -c",
     "test:watch": "jest --watch",
-    "doc": "typedoc --out output/docs --includeDeclarations --mode file --excludeExternals src/index.ts",
     "test": "jest --verbose"
   },
+  "files": [
+    "dist",
+    "bin",
+    "README.md"
+  ],
   "keywords": [
     "typedocplugin",
     "typedoc",
