@@ -1,5 +1,7 @@
 # typedoc-plugin-typescript-declaration
 
+[![Build Status](https://travis-ci.org/socsieng/typedoc-plugin-typescript-declaration.svg?branch=master)](https://travis-ci.org/socsieng/typedoc-plugin-typescript-declaration)
+
 This is a Typedoc plugin that renders a TypeScript declaration file.
 
 ## Installation
