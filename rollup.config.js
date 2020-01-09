@@ -6,6 +6,7 @@ const externalDependencies = [
   'path',
   'typedoc/dist/lib/converter',
   'typedoc/dist/lib/converter/components',
+  'typedoc/dist/lib/converter/nodes/block',
   'typedoc/dist/lib/converter/plugins/CommentPlugin',
   'typedoc/dist/lib/models',
   'typedoc/dist/lib/output/renderer',
