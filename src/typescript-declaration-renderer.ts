@@ -20,6 +20,18 @@ export class TypeScriptDeclarationRenderer extends RendererComponent {
 
     let file = options.getValue('declarationFile') as string;
 
+    if (!event.project.children) {
+      const message = ['', 'ERROR: No types found, nothing to write'];
+
+      const includesDeclaration = !!process.argv.find(arg => arg !== file && /\.d\.ts$/.test(arg));
+      if (!options.getValue('includeDeclarations') && includesDeclaration) {
+        message.push('Consider using the --includeDeclarations option');
+      }
+
+      console.error(message.join('\n'));
+      process.exit(1);
+    }
+
     if (file) {
       file = path.resolve(process.cwd(), file);
 
