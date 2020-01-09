@@ -14,11 +14,22 @@ namespace Example {
     everything = 3,
   }
 
+  /**
+   * Base class for animals
+   */
   abstract class Animal {
     abstract diet: Diet;
+    /**
+     * Moves the animal to the desired position
+     *
+     * @param position Desired position
+     */
     move(position: Position) {};
   }
 
+  /**
+   * A bird is a type of [[Animal]]
+   */
   export class Bird extends Animal {
     diet = Diet.everything;
   }
