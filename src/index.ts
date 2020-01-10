@@ -56,12 +56,12 @@ module.exports = (PluginHost: Application) => {
     app.converter.addComponent('noop-theme', new NoopThemeComponent(app.converter));
   }
 
-  if (app.options.getValue('keyofComments') !== AddKeysTagOption.off) {
-    app.converter.addComponent('keyof-comment', new KeyOfCommentConverter(app.converter));
-  }
-
   ReflectionFormatter.sortOption = app.options.getValue('sortOption');
 
   app.renderer.addComponent('typescript-declaration-renderer', new TypeScriptDeclarationRenderer(app.renderer));
   app.converter.addComponent('filter-converter', new FilterConverter(app.converter));
+
+  if (app.options.getValue('keyofComments') !== AddKeysTagOption.off) {
+    app.converter.addComponent('keyof-comment', new KeyOfCommentConverter(app.converter));
+  }
 }
