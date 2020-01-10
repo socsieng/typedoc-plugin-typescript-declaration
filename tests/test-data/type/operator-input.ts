@@ -20,6 +20,7 @@ export module test {
    * Should leave these keys tag alone
    *
    * @keys on | off
+   * | ON | OFF
    */
   export type LeaveThisAlone = keyof {
     /**

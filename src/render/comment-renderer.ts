@@ -47,7 +47,12 @@ export default class CommentRenderer {
       if (comment.tags?.length) {
         sections.push(
           comment.tags
-            .map(t => ` * ${join(' ', `@${t.tagName}`, t.paramName, t.text?.replace(/\n$/m, ''))}`)
+            .map(t => {
+              const [firstLine, ...remainingLines] = t.text?.replace(/\n$/, '').split(/\n/gm);
+              return ` * @${join(' ', t.tagName, firstLine || '')}${remainingLines?.length
+                ? `\n${remainingLines.map(l => ` * ${l}`.trimRight()).join('\n')}`
+                : ''}`;
+            })
             .join('\n')
         );
       }

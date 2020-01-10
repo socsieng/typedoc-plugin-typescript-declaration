@@ -75,7 +75,6 @@ it('should short and long text with parameters and tags', () => {
   node.comment = new Comment('Signature short text', 'Long text for signature');
   node.comment.tags = [
     new CommentTag('since', '', '1.0'),
-    new CommentTag('since', 'something', '1.0'),
   ];
   const param = new ParameterReflection('param1', ReflectionKind.Parameter);
   param.comment = new Comment('', 'Param 1 comment');
@@ -89,7 +88,6 @@ it('should short and long text with parameters and tags', () => {
  * @param param1 Param 1 comment
  *
  * @since 1.0
- * @since something 1.0
  */`
   );
 });
