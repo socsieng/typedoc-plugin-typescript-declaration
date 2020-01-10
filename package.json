@@ -1,6 +1,6 @@
 {
   "name": "typedoc-plugin-typescript-declaration",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Typedoc plugin to render to typescript declaration file",
   "main": "dist/index.js",
   "bin": {
@@ -43,10 +43,10 @@
     "rollup-plugin-typescript2": "^0.25.3",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
-    "typedoc": "^0.15.7",
     "typescript": "^3.7.4"
   },
   "dependencies": {
-    "make-dir": "^3.0.0"
+    "make-dir": "^3.0.0",
+    "typedoc": "^0.15.8"
   }
 }
