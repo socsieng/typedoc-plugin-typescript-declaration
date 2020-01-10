@@ -48,7 +48,7 @@ export default class ContainerRenderer extends ReflectionRenderer {
     return lines.join('\n');
   }
 
-  protected renderBody(declarationNode: DeclarationReflection, indentBy: number = 1): string {
+  protected renderBody(declarationNode: DeclarationReflection, indentBy: number = 1, delimiter: string = ';'): string {
     let sorter: (a: Reflection, b: Reflection) => number;
 
     const isGroupType = !!['module', 'project'].find(type => type === this._type);
@@ -69,7 +69,7 @@ export default class ContainerRenderer extends ReflectionRenderer {
           return !node.sources || ownedSources?.length !== 0;
         })
         .sort(sorter)
-        .map(node => ReflectionFormatter.instance().render(node, ';'))
+        .map(node => ReflectionFormatter.instance().render(node, delimiter))
         .filter(s => s)
         .join(insertBlankLine ? '\n\n' : '\n');
 

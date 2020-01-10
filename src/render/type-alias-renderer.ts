@@ -1,11 +1,13 @@
 import { DeclarationReflection, Reflection, ReflectionType } from 'typedoc/dist/lib/models';
-import ReflectionFormatter from './reflection-formatter';
-import ReflectionRenderer from './reflection-renderer';
+import ContainerRenderer from './container-renderer';
 import TypeFormatter from './type-formatter';
 import join from '../util/join';
-import { propertySorter } from '../util/sort';
 
-export default class TypeAliasRenderer extends ReflectionRenderer {
+export default class TypeAliasRenderer extends ContainerRenderer {
+  constructor() {
+    super('type_alias');
+  }
+
   public render(node: Reflection, terminationCharacter?: string): string {
     const lines: string[] = [];
     const declarationParts: string[] = [
@@ -28,11 +30,10 @@ export default class TypeAliasRenderer extends ReflectionRenderer {
     if (type.declaration?.children) {
       lines.push(join(' ', ...declarationParts, '{'));
 
-      const indent = this._indentor.getIndent(1);
-      const members = type.declaration.children
-        .sort(propertySorter(node => node.id))
-        .map(node => ReflectionFormatter.instance().render(node, ';'));
-      lines.push(...members.map(block => block.split(/\r?\n(?=.)/gm).map(l => `${indent}${l}`).join('\n')));
+      const body = this.renderBody(type.declaration);
+      if (body) {
+        lines.push(body);
+      }
 
       lines.push('}');
     } else if (type) {

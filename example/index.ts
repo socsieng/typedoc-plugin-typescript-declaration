@@ -14,6 +14,15 @@ namespace Example {
     everything = 3,
   }
 
+  export type MoveType = keyof {
+    crawl: string,
+    walk: string,
+    swim: string,
+    fly: string,
+  }
+
+  export type AnimalProperty = keyof Animal;
+
   /**
    * Base class for animals
    */

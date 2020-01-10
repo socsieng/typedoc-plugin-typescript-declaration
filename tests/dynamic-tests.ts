@@ -3,6 +3,7 @@ import * as path from 'path';
 import ReflectionFormatter, { ReflectionSortFlags } from '../src/render/reflection-formatter';
 import { Application } from 'typedoc/dist/lib/application';
 import { CallbackLogger } from 'typedoc/dist/lib/utils';
+import KeyOfCommentResolver from '../src/convert/keyof-comment-resolver';
 import Version from '../src/util/version';
 import VersionFilter from '../src/convert/version-filter';
 import glob from 'glob';
@@ -41,8 +42,14 @@ describe('Dynamic test suite', () => {
       const outputDeclarationFile = `${path.join(ouputBase, basename)}${outputSuffix}.d.ts`;
       const outputDirectory = path.dirname(outputJsonFile);
 
-      const reflectionsToRemove = VersionFilter.instance().filterReflections(Object.values(project.reflections), Version.parse('1.0'));
-      VersionFilter.instance().removeReflections(project, reflectionsToRemove);
+      const filter = VersionFilter.instance();
+      const keyOfResolver = KeyOfCommentResolver.instance();
+
+      const reflectionsToRemove = filter.filterReflections(Object.values(project.reflections), Version.parse('1.0'));
+      const reflectionsWithKeys = Object.values(project.reflections).filter(r => keyOfResolver.shouldResolveKeys(project, r));
+
+      filter.removeReflections(project, reflectionsToRemove);
+      reflectionsWithKeys.forEach(r => keyOfResolver.resolveKeys(project, r));
 
       if (writeOutput) {
         mkdir.sync(outputDirectory);

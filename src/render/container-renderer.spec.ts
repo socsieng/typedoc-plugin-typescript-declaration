@@ -1,7 +1,15 @@
 // work-around to fix test
-require('./project-renderer');
+require('./reflection-formatter');
 
-import { Comment, DeclarationReflection, IntrinsicType, ParameterReflection, ReflectionFlag, ReflectionKind, SignatureReflection } from 'typedoc/dist/lib/models';
+import {
+  Comment,
+  DeclarationReflection,
+  IntrinsicType,
+  ParameterReflection,
+  ReflectionFlag,
+  ReflectionKind,
+  SignatureReflection
+} from 'typedoc/dist/lib/models';
 import ContainerRenderer from './container-renderer';
 
 it('should render basic class', () => {

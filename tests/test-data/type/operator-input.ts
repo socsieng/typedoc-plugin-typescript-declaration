@@ -10,4 +10,25 @@ export module test {
      */
     failure: string;
   }
+
+  export type DynamicType = keyof {
+    on: string,
+    off: string,
+  };
+
+  /**
+   * Should leave these keys tag alone
+   *
+   * @keys on | off
+   */
+  export type LeaveThisAlone = keyof {
+    /**
+     * Turns stuff on
+     */
+    on: string,
+    /**
+     * Turns stuff off
+     */
+    off: string,
+  };
 }
