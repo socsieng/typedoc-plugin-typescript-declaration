@@ -8,5 +8,7 @@ if (isVersion) {
 }
 
 const cli = require('typedoc/dist/lib/cli');
-const app = new cli.CliApplication();
+const app = new cli.CliApplication({
+  plugin: package.name,
+});
 
