@@ -14,6 +14,8 @@ const externalDependencies = [
   'typedoc/dist/lib/output/events',
   'typedoc/dist/lib/output/models/NavigationItem',
   'typedoc/dist/lib/output/theme',
+  'typedoc/dist/lib/utils',
+  'typedoc/dist/lib/utils/component',
   'typedoc/dist/lib/utils/options/declaration',
 ];
 
