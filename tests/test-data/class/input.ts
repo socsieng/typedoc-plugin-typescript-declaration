@@ -9,12 +9,14 @@ export default class MyClass {
 
   private _instanceId: number;
 
+  private _name!: string;
+
   public constructor() {
     this._instanceId = MyClass._counter++;
   }
 
   toString(): string {
-    return '';
+    return this._name;
   }
 
   /**

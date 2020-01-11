@@ -9,6 +9,8 @@ declare class MyClass {
 
   private _instanceId: number;
 
+  private _name: string;
+
   public constructor();
 
   toString(): string;
