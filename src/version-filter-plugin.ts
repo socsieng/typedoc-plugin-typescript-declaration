@@ -1,13 +1,22 @@
 import { Context, Converter } from 'typedoc/dist/lib/converter';
 import { Component } from 'typedoc/dist/lib/output/components';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
+import { Option } from 'typedoc/dist/lib/utils';
+import { ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
 import { Reflection } from 'typedoc/dist/lib/models';
 import Version from './util/version';
 import VersionFilter from './convert/version-filter';
 
-@Component({ name: 'filter-converter' })
-export class FilterConverter extends ConverterComponent {
-  private _maxVersion?: Version;
+@Component({ name: 'version-filter' })
+export class VersionFilterPlugin extends ConverterComponent {
+  @Option({
+    name: 'maxVersion',
+    type: ParameterType.String,
+    help: 'The maxminum version number to include in the filter (compares against the `@since` tag)',
+  })
+  private _maxVersion?: string;
+
+  private _version?: Version;
   private _excluded?: Reflection[];
 
   protected initialize() {
@@ -22,11 +31,9 @@ export class FilterConverter extends ConverterComponent {
   }
 
   private onBegin() {
-    const versionNumber: string = this.application.options.getValue('maxVersion');
-
     this._excluded = [];
-    if (versionNumber) {
-      this._maxVersion = Version.parse(versionNumber);
+    if (this._maxVersion) {
+      this._version = Version.parse(this._maxVersion);
     }
   }
 
@@ -38,9 +45,9 @@ export class FilterConverter extends ConverterComponent {
   }
 
   private onDeclaration(context: Context, reflection: Reflection) {
-    if (!this._maxVersion) return;
+    if (!this._version) return;
 
-    if (!VersionFilter.instance().isIncluded(reflection, this._maxVersion)) {
+    if (!VersionFilter.instance().isIncluded(reflection, this._version)) {
       this._excluded!.push(reflection);
     }
   }

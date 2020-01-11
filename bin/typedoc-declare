@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const package = require('../package.json');
+const path = require('path');
 
 const isVersion = process.argv.find(arg => arg === '-v' || arg === '--version');
 if (isVersion) {
@@ -8,7 +9,6 @@ if (isVersion) {
 }
 
 const cli = require('typedoc/dist/lib/cli');
-const app = new cli.CliApplication({
-  plugin: package.name,
+new cli.CliApplication({
+  plugin: path.resolve(__dirname, '..'),
 });
-
