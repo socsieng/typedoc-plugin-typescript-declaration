@@ -61,8 +61,17 @@ export default class ContainerRenderer extends ReflectionRenderer {
       sorter = propertySorter(node => node.name);
     }
 
+    const children: DeclarationReflection[] = [];
     if (declarationNode.children) {
-      const members = declarationNode.children
+      children.push(...declarationNode.children);
+    }
+
+    if (declarationNode.indexSignature) {
+      children.push(declarationNode.indexSignature as unknown as DeclarationReflection);
+    }
+
+    if (children.length) {
+      const members = children
         .filter(node => !node.inheritedFrom)
         .filter(node => {
           const ownedSources = node.sources?.filter(s => !/^node_modules\//i.test(s.fileName));

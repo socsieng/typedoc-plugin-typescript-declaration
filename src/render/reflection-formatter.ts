@@ -7,6 +7,7 @@ import EnumMemberRenderer from './enum-member-renderer';
 import EventRenderer from './event-renderer';
 import FunctionRenderer from './function-renderer';
 import GetSignatureRenderer from './get-signature-renderer';
+import IndexSignatureRenderer from './index-signature-renderer';
 import MethodRenderer from './method-renderer';
 import ParameterRenderer from './parameter-renderer';
 import ProjectRenderer from './project-renderer';
@@ -67,6 +68,7 @@ export default class ReflectionFormatter {
     this._renderers[ReflectionKind.Parameter] = new ParameterRenderer();
     this._renderers[ReflectionKind.TypeParameter] = new TypeParameterRenderer();
     this._renderers[ReflectionKind.Event] = new EventRenderer();
+    this._renderers[ReflectionKind.IndexSignature] = new IndexSignatureRenderer();
   }
 
   public render(reflection?: Reflection, terminatorCharater?: string): string {
