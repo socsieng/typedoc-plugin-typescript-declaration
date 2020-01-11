@@ -1,6 +1,6 @@
 {
   "name": "typedoc-plugin-typescript-declaration",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Typedoc plugin to render to typescript declaration file",
   "main": "dist/index.js",
   "bin": {

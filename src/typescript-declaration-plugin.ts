@@ -65,14 +65,14 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
         .forEach(c => app.renderer.removeComponent(c.componentName));
     }
 
-    if (this._declarationOnly && !this._declarationFile) {
-      throw new Error('--declarationFile file must be specified when using the --declarationOnly option');
-    }
-
     ReflectionFormatter.sortOption = this._sortOption;
   }
 
   private veriftProject(project: ProjectReflection) {
+    if (this._declarationOnly && !this._declarationFile) {
+      throw new Error('--declarationFile file must be specified when using the --declarationOnly option');
+    }
+
     if (!project.children) {
       const message = ['', 'ERROR: No types found, nothing to write'];
 
