@@ -1,4 +1,4 @@
-import { Reflection, SignatureReflection } from 'typedoc/dist/lib/models';
+import { Reflection, ReflectionKind, SignatureReflection } from 'typedoc/dist/lib/models';
 import join from '../util/join';
 
 export default class CommentRenderer {
@@ -25,6 +25,10 @@ export default class CommentRenderer {
             .map(l => ` * ${l}`.trimRight())
             .join('\n')
         );
+      }
+
+      if (node.kind === ReflectionKind.Event) {
+        sections.push(' * @event');
       }
 
       const signature = node as SignatureReflection;
