@@ -10,21 +10,11 @@ export default class CommentRenderer {
     if (comment) {
       lines.push('/**');
       if (comment.shortText) {
-        sections.push(
-          comment.shortText.replace(/\n$/, '')
-            .split(/\n/gm)
-            .map(l => ` * ${l}`.trimRight())
-            .join('\n')
-        );
+        sections.push(this.renderMultilineComment('', comment.shortText));
       }
 
       if (comment.text) {
-        sections.push(
-          comment.text.replace(/\n$/, '')
-            .split(/\n/gm)
-            .map(l => ` * ${l}`.trimRight())
-            .join('\n')
-        );
+        sections.push(this.renderMultilineComment('', comment.text));
       }
 
       if (node.kind === ReflectionKind.Event) {
@@ -32,31 +22,30 @@ export default class CommentRenderer {
       }
 
       const signature = node as SignatureReflection;
+      const paramsSection: string[] = [];
       if (signature.parameters) {
         const paramComments = signature.parameters
           .filter(p => p.comment?.text)
-          .map(p => {
-            const [firstLine, ...remainingLines] = p.comment!.text!.replace(/\n$/, '').split(/\n/gm);
-            return ` * @param ${join(' ', p.name, firstLine || '')}${remainingLines?.length
-              ? `\n${remainingLines.map(l => ` * ${l}`.trimRight()).join('\n')}`
-              : ''}`;
-          })
+          .map(p => this.renderMultilineComment(`@param ${p.name}`, p.comment!.text!))
           .join('\n');
 
         if (paramComments.length) {
-          sections.push(paramComments);
+          paramsSection.push(paramComments);
         }
+      }
+
+      if (comment.returns) {
+        paramsSection.push(this.renderMultilineComment('@returns', comment.returns));
+      }
+
+      if (paramsSection.length) {
+        sections.push(paramsSection.join('\n'));
       }
 
       if (comment.tags?.length) {
         sections.push(
           comment.tags
-            .map(t => {
-              const [firstLine, ...remainingLines] = t.text?.replace(/\n$/, '').split(/\n/gm);
-              return ` * @${join(' ', t.tagName, firstLine || '')}${remainingLines?.length
-                ? `\n${remainingLines.map(l => ` * ${l}`.trimRight()).join('\n')}`
-                : ''}`;
-            })
+            .map(t => this.renderMultilineComment(`@${t.tagName}`, t.text))
             .join('\n')
         );
       }
@@ -64,5 +53,12 @@ export default class CommentRenderer {
       lines.push(' */');
     }
     return lines.join('\n');
+  }
+
+  private renderMultilineComment(prefix: string, comment: string): string {
+    const [firstLine, ...remainingLines] = comment.replace(/\n$/, '').split(/\n/gm);
+    return ` * ${join(' ', prefix, firstLine || '')}${remainingLines?.length
+      ? `\n${remainingLines.map(l => ` * ${l}`.trimRight()).join('\n')}`
+      : ''}`;
   }
 }

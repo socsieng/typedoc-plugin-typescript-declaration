@@ -20,5 +20,14 @@ declare module CommentsTest {
      * and paragraphs
      */
     doSomething(param: any): void;
+
+    /**
+     * Adds two numbers together
+     *
+     * @param a first number
+     * @param b second number
+     * @returns the sum of a and b
+     */
+    add(a: number, b: number): number;
   }
 }
