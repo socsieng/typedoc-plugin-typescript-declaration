@@ -9,6 +9,7 @@ import FunctionRenderer from './function-renderer';
 import GetSignatureRenderer from './get-signature-renderer';
 import IndexSignatureRenderer from './index-signature-renderer';
 import MethodRenderer from './method-renderer';
+import ObjectLiteralRenderer from './object-literal-renderer';
 import ParameterRenderer from './parameter-renderer';
 import ProjectRenderer from './project-renderer';
 import PropertyRenderer from './property-renderer';
@@ -69,6 +70,7 @@ export default class ReflectionFormatter {
     this._renderers[ReflectionKind.TypeParameter] = new TypeParameterRenderer();
     this._renderers[ReflectionKind.Event] = new EventRenderer();
     this._renderers[ReflectionKind.IndexSignature] = new IndexSignatureRenderer();
+    this._renderers[ReflectionKind.ObjectLiteral] = new ObjectLiteralRenderer();
   }
 
   public render(reflection?: Reflection, terminatorCharater?: string): string {

@@ -40,6 +40,13 @@ export default abstract class ReflectionRenderer {
       modifiers.push('abstract');
     }
 
+    if (flags.isConst || parentFlags?.isConst) {
+      modifiers.push('const');
+    }
+    if (flags.isLet || parentFlags?.isLet) {
+      modifiers.push('let');
+    }
+
     return modifiers;
   }
 
