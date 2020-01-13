@@ -1,5 +1,5 @@
 declare module test {
-  export type StatusTypes = {
+  type StatusTypes = {
     /**
      * Success
      */

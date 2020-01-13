@@ -2,6 +2,7 @@ import { Application } from 'typedoc/dist/lib/application';
 import { KeyOfCommentPlugin } from './keyof-comment-plugin';
 import { TypeScriptDeclarationPlugin } from './typescript-declaration-plugin';
 import { VersionFilterPlugin } from './version-filter-plugin';
+import { addDecoratedOptions } from 'typedoc/dist/lib/utils/options/sources';
 
 module.exports = (PluginHost: Application) => {
   const app = PluginHost.owner;
@@ -10,6 +11,9 @@ module.exports = (PluginHost: Application) => {
   app.converter.addComponent('keyof-comment', new KeyOfCommentPlugin(app.converter));
 
   const declarationPlugin = app.renderer.addComponent('typescript-declaration', new TypeScriptDeclarationPlugin(app.renderer));
+
+  // work-around for typedoc options not being read: https://github.com/TypeStrong/typedoc/issues/1165
+  addDecoratedOptions(app.options);
 
   declarationPlugin.applyConfiguration();
 }

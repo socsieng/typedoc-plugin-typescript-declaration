@@ -1,6 +1,6 @@
 {
   "name": "typedoc-plugin-typescript-declaration",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Typedoc plugin to render to typescript declaration file",
   "main": "dist/index.js",
   "bin": {
@@ -47,6 +47,6 @@
   },
   "dependencies": {
     "make-dir": "^3.0.0",
-    "typedoc": "^0.15.8"
+    "typedoc": "^0.16.2"
   }
 }

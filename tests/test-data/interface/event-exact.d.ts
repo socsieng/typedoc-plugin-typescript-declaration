@@ -2,7 +2,7 @@ declare module "background-http" {
   /**
    * Encapsulates some information for background http transfers.
    */
-  export interface Task {
+  interface Task {
     /**
      * Subscribe for a general event by name.
      *

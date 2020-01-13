@@ -2,7 +2,7 @@ declare module test {
   /**
    * @keys [[StatusTypes.success|`success`]], [[StatusTypes.failure|`failure`]]
    */
-  export type StatusType = keyof StatusTypes;
+  type StatusType = keyof StatusTypes;
 
   type StatusTypes = {
     /**
@@ -18,7 +18,7 @@ declare module test {
   /**
    * @keys `on`, `off`
    */
-  export type DynamicType = keyof {
+  type DynamicType = keyof {
     on: string,
     off: string,
   };
@@ -29,7 +29,7 @@ declare module test {
    * @keys on | off
    * | ON | OFF
    */
-  export type LeaveThisAlone = keyof {
+  type LeaveThisAlone = keyof {
     /**
      * Turns stuff on
      */

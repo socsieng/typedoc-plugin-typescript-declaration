@@ -17,7 +17,7 @@ export default class ContainerRenderer extends ReflectionRenderer {
   public render(node: Reflection): string {
     const lines: string[] = [];
     const declarationParts: string[] = [
-      this.isTop(node) ? 'declare' : node.flags.isExported ? 'export' : '',
+      this.isTop(node) ? 'declare' : '',
       ...this.getModifiers(node), this._type, `${node.name}${this.renderTypeParameters(node as DeclarationReflection)}`
     ];
 

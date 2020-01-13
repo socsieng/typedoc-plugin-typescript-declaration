@@ -9,6 +9,8 @@ if (isVersion) {
 }
 
 const cli = require('typedoc/dist/lib/cli');
-new cli.CliApplication({
+const app = new cli.CliApplication();
+
+app.bootstrap({
   plugin: path.resolve(__dirname, '..'),
 });

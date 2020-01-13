@@ -7,12 +7,12 @@ it('should format intrinsic type', () => {
 });
 
 it('should format reference type', () => {
-  const type = new ReferenceType('string', 0);
+  const type = new ReferenceType('string', 'string');
   expect(TypeFormatter.format(type)).toEqual('string');
 });
 
 it('should format reference type with generics', () => {
-  const type = new ReferenceType('Array', 0);
+  const type = new ReferenceType('Array', 'Array');
   type.typeArguments = [
     new IntrinsicType('string'),
   ];
@@ -28,7 +28,7 @@ it('should format union type', () => {
 });
 
 it('should format generics with union type', () => {
-  const type = new ReferenceType('Array', 0);
+  const type = new ReferenceType('Array', 'Array');
   type.typeArguments = [
     new UnionType([
       new IntrinsicType('string'),
@@ -73,6 +73,6 @@ it('should format predecate type', () => {
 
 it('should format type parameter type', () => {
   const type = new TypeParameterType('T');
-  type.constraint = new ReferenceType('MyClass', 0);
+  type.constraint = new ReferenceType('MyClass', 'MyClass');
   expect(TypeFormatter.format(type)).toEqual('T extends MyClass');
 });

@@ -4,15 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "doc": "typedoc --out docs --mode file --declarationFile docs/index.d.ts",
-    "declaration": "typedoc --mode file --declarationOnly --declarationFile docs/index.d.ts",
+    "doc": "typedoc-declare --out docs --mode file --declarationFile docs/index.d.ts",
+    "declaration": "typedoc-declare --mode file --declarationOnly --declarationFile docs/index.d.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typedoc": "^0.15.8",
-    "typedoc-plugin-typescript-declaration": "^0.1.16"
+    "typedoc-plugin-typescript-declaration": "file:.."
   },
   "dependencies": {}
 }

@@ -4,6 +4,9 @@ import ReflectionFormatter, { ReflectionSortFlags } from '../src/render/reflecti
 import { Application } from 'typedoc/dist/lib/application';
 import { CallbackLogger } from 'typedoc/dist/lib/utils';
 import KeyOfCommentResolver from '../src/convert/keyof-comment-resolver';
+import { SourceFileMode } from 'typedoc/dist/lib/converter/nodes/block';
+import { TSConfigReader } from 'typedoc/dist/lib/utils/options/readers';
+import { TypeDocAndTSOptions } from 'typedoc/dist/lib/utils/options/declaration';
 import Version from '../src/util/version';
 import VersionFilter from '../src/convert/version-filter';
 import glob from 'glob';
@@ -16,18 +19,31 @@ const folders = ['test-data/**/*input.ts', 'test-data/**/*input.d.ts', 'test-dat
   .reduce((allFiles, files) => [...allFiles, ...files], [])
   .map(f => [f]);
 
+function createApplication(logOutput: string[]) {
+  const options: Partial<TypeDocAndTSOptions> = {
+    tsconfig: path.resolve(__dirname, '../tsconfig.json'),
+    // ignoreCompilerErrors: true,
+    includeDeclarations: true,
+    excludeExternals: true,
+    mode: SourceFileMode.File,
+  };
+
+  const app = new Application();
+  app.logger = new CallbackLogger((message: string) => { logOutput.push(message) });
+
+  app.options.addReader(new TSConfigReader())
+
+  app.bootstrap(options);
+
+  return app;
+}
+
 describe('Dynamic test suite', () => {
   test.each(folders)('should execute test: %s', (testFile) => {
     const logOutput: string[] = [];
-    const typedoc = new Application({
-      tsconfig: 'tsconfig.json',
-      includeDeclarations: true,
-      excludeExternals: true,
-      mode: 'file',
-    });
-    typedoc.logger = new CallbackLogger((message: string) => { logOutput.push(message) });
+    const app = createApplication(logOutput);
 
-    const project = typedoc.convert([path.join(__dirname, testFile)]);
+    const project = app.convert([path.join(__dirname, testFile)]);
     const basename = testFile.replace(/(input|exact)(\.d)?\.ts$/i, '');
     const expectedFile = /exact\.d\.ts$/i.test(testFile) ? testFile : `${basename}expected.d.ts`;
     const expectedOutput = fs.readFileSync(path.join(__dirname, expectedFile), 'utf8');
@@ -54,7 +70,7 @@ describe('Dynamic test suite', () => {
       if (writeOutput) {
         mkdir.sync(outputDirectory);
 
-        fs.writeFileSync(outputJsonFile, JSON.stringify(project.toObject(), null, '  '));
+        fs.writeFileSync(outputJsonFile, JSON.stringify(app.serializer.toObject(project), null, '  '));
       }
 
       const result = formatter.render(project);

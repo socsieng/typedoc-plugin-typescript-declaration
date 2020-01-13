@@ -10,7 +10,7 @@ export default class ObjectLiteralRenderer extends ContainerRenderer {
   public render(node: Reflection, terminationCharacter?: string): string {
     const lines: string[] = [];
     const declarationParts: string[] = [
-      this.isTop(node) ? 'declare' : node.flags.isExported ? 'export' : '',
+      this.isTop(node) ? 'declare' : '',
       ...this.getModifiers(node),
       `${node.name}:`,
     ];

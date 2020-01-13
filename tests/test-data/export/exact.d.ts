@@ -2,7 +2,7 @@
  * Export test
  */
 declare module ExportTest {
-  export class ExportedClass {
+  class ExportedClass {
     private doSomethingPrivate(): void;
 
     public doSomethingPublic(): void;
@@ -14,9 +14,9 @@ declare module ExportTest {
     public doSomethingPublic(): void;
   }
 
-  export type ExportType = "exported" | "not exported";
+  type ExportType = "exported" | "not exported";
 
-  export type ExportOptions = {
+  type ExportOptions = {
     isExported: boolean;
     shouldExport: () => boolean;
   }

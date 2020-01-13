@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Component, RendererComponent } from 'typedoc/dist/lib/output/components';
-import { ParameterHint, ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
+import { ParameterHint, ParameterType, TypeDocOptions } from 'typedoc/dist/lib/utils/options/declaration';
 import ReflectionFormatter, { ReflectionSortFlags, sortMapping } from './render/reflection-formatter';
-import { Option } from 'typedoc/dist/lib/utils/component';
+import { Option } from 'typedoc/dist/lib/utils';
 import { ProjectReflection } from 'typedoc/dist/lib/models';
 import { Renderer } from 'typedoc/dist/lib/output/renderer';
 import { RendererEvent } from 'typedoc/dist/lib/output/events';
@@ -44,8 +44,10 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
 
   public applyConfiguration() {
     const app = this.application;
-    app.options.read();
-    const options = app.options.getRawValues();
+    app.options.read(app.logger);
+    const options: Partial<TypeDocOptions> & Partial<{
+      declarationOnly: boolean,
+    }> = app.options.getRawValues();
 
     if (options.declarationOnly || !options.out) {
       app.options.setValue('out', './docs');
@@ -64,8 +66,6 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
         .filter(c => c.componentName !== 'typescript-declaration')
         .forEach(c => app.renderer.removeComponent(c.componentName));
     }
-
-    ReflectionFormatter.sortOption = this._sortOption;
   }
 
   private veriftProject(project: ProjectReflection) {
@@ -88,6 +88,8 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
 
   private onRenderBegin(event: RendererEvent) {
     this.veriftProject(event.project);
+
+    ReflectionFormatter.sortOption = this._sortOption;
 
     const formatter = ReflectionFormatter.instance();
 

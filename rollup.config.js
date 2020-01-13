@@ -17,6 +17,7 @@ const externalDependencies = [
   'typedoc/dist/lib/utils',
   'typedoc/dist/lib/utils/component',
   'typedoc/dist/lib/utils/options/declaration',
+  'typedoc/dist/lib/utils/options/sources',
 ];
 
 export default [

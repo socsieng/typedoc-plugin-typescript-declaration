@@ -6,7 +6,7 @@ declare module CommentsTest {
    *
    * This is the other paragraph
    */
-  export class MyClass {
+  class MyClass {
     property: string;
 
     /**

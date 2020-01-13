@@ -2,7 +2,7 @@ import { Context, Converter } from 'typedoc/dist/lib/converter';
 import { Component } from 'typedoc/dist/lib/output/components';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
 import KeyOfCommentResolver from './convert/keyof-comment-resolver';
-import { Option } from 'typedoc/dist/lib/utils/component';
+import { Option } from 'typedoc/dist/lib/utils';
 import { ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
 
 export enum AddKeysTagOption {
