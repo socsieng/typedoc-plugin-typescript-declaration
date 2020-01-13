@@ -11,6 +11,7 @@ import Version from '../src/util/version';
 import VersionFilter from '../src/convert/version-filter';
 import glob from 'glob';
 import mkdir from 'make-dir';
+import { OmitTagsPlugin } from '../src/omit-tags-plugin';
 
 const writeOutput = process.env['DEBUG_MODE'] !== 'none';
 
@@ -66,6 +67,7 @@ describe('Dynamic test suite', () => {
 
       filter.removeReflections(project, reflectionsToRemove);
       reflectionsWithKeys.forEach(r => keyOfResolver.resolveKeys(project, r));
+      OmitTagsPlugin.removeTags(Object.values(project.reflections), ['stuff']);
 
       if (writeOutput) {
         mkdir.sync(outputDirectory);

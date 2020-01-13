@@ -9,7 +9,7 @@ export default class PropertyRenderer extends ReflectionRenderer {
     const declarationParts: string[] = [...this.getModifiers(node), `${this.encodeName(node.name)}${node.flags.isOptional ? '?' : ''}`];
 
     if (node.comment) {
-      lines.push(this.renderComment(node));
+      this.pushIfTruthy(lines, this.renderComment(node));
     }
 
     const member = node as DeclarationReflection;

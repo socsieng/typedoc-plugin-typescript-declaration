@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "doc": "typedoc-declare --out docs --mode file --declarationFile docs/index.d.ts",
-    "declaration": "typedoc-declare --mode file --declarationOnly --declarationFile docs/index.d.ts",
+    "doc": "typedoc-declare --out docs --mode file --declarationFile docs/index.d.ts --omitTag since --omitTag other",
+    "declaration": "typedoc-declare --mode file --declarationOnly --declarationFile docs/index.d.ts --omitTag since --omitTag other",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

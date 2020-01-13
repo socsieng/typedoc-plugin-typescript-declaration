@@ -22,7 +22,7 @@ export default class ContainerRenderer extends ReflectionRenderer {
     ];
 
     if (node.comment) {
-      lines.push(this.renderComment(node));
+      this.pushIfTruthy(lines, this.renderComment(node));
     }
 
     const declarationNode = node as DeclarationReflection;

@@ -3,12 +3,11 @@ import join from '../util/join';
 
 export default class CommentRenderer {
   public render(node: Reflection): string {
-    const lines: string[] = [];
+    let lines: string[] = [];
     const sections: string[] = [];
     const comment = node.comment;
 
     if (comment) {
-      lines.push('/**');
       if (comment.shortText) {
         sections.push(this.renderMultilineComment('', comment.shortText));
       }
@@ -49,9 +48,16 @@ export default class CommentRenderer {
             .join('\n')
         );
       }
-      lines.push(sections.join('\n *\n'));
-      lines.push(' */');
+
+      if (sections.length) {
+        lines.push(sections.join('\n *\n'));
+      }
     }
+
+    if (lines.length) {
+      lines = ['/**', ...lines, ' */'];
+    }
+
     return lines.join('\n');
   }
 

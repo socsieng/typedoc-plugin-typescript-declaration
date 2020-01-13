@@ -12,7 +12,7 @@ export default class TypeLiteralRenderer extends ContainerRenderer {
     const lines: string[] = [];
 
     if (node.comment) {
-      lines.push(this.renderComment(node));
+      this.pushIfTruthy(lines, this.renderComment(node));
     }
 
     const member = node as DeclarationReflection;

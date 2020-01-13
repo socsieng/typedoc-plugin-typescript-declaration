@@ -13,7 +13,7 @@ export default class CallSignatureRenderer extends SignatureRenderer {
     ];
 
     if (node.comment) {
-      lines.push(this.renderComment(node));
+      this.pushIfTruthy(lines, this.renderComment(node));
     }
 
     const method = node as SignatureReflection;

@@ -20,7 +20,7 @@ export default class TypeAliasRenderer extends ContainerRenderer {
 
     if (node.comment)
     {
-      lines.push(this.renderComment(node));
+      this.pushIfTruthy(lines, this.renderComment(node));
     }
 
     const declarationNode = node as DeclarationReflection;

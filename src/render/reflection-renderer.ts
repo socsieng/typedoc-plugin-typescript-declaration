@@ -65,4 +65,10 @@ export default abstract class ReflectionRenderer {
   protected getTag(node: Reflection, tag: string) {
     return node.comment?.tags?.find(t => t.tagName === tag);
   }
+
+  protected pushIfTruthy<T>(array: T[], value: T) {
+    if (value) {
+      array.push(value);
+    }
+  }
 }

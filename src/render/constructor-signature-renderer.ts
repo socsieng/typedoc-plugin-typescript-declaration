@@ -9,7 +9,7 @@ export default class ConstructorSignatureRenderer extends SignatureRenderer {
     const declarationParts: string[] = [...this.getModifiers(node, node.parent), isTypeLiteral ? 'new' : 'constructor'];
 
     if (node.comment) {
-      lines.push(this.renderComment(node));
+      this.pushIfTruthy(lines, this.renderComment(node));
     }
 
     const method = node as SignatureReflection;

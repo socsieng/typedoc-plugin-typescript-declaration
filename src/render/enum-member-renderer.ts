@@ -8,7 +8,7 @@ export default class EnumMemberRenderer extends ReflectionRenderer {
     const declarationParts: string[] = [...this.getModifiers(node), node.name];
 
     if (node.comment) {
-      lines.push(this.renderComment(node));
+      this.pushIfTruthy(lines, this.renderComment(node));
     }
 
     const member = node as DeclarationReflection;
