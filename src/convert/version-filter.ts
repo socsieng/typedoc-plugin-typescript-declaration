@@ -1,5 +1,4 @@
 import { ProjectReflection, Reflection } from 'typedoc/dist/lib/models';
-import { CommentPlugin } from 'typedoc/dist/lib/converter/plugins/CommentPlugin';
 import Version from '../util/version';
 
 export default class VersionFilter {
@@ -28,7 +27,7 @@ export default class VersionFilter {
   }
 
   public removeReflections(project: ProjectReflection, reflectionsToRemove: Reflection[]) {
-    CommentPlugin.removeReflections(project, reflectionsToRemove);
+    reflectionsToRemove.forEach(r => project.removeReflection(r, true));
   }
 
   private static _instance: VersionFilter;
