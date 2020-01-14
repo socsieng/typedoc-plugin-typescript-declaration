@@ -14,13 +14,38 @@ namespace Example {
     everything = 3,
   }
 
+  /**
+   * Different ways an animal might move
+   *
+   * @inline
+   */
   export type MoveType = keyof {
+    /**
+     * Crawl like a baby
+     */
     crawl: string,
+    /**
+     * Walk like a man
+     */
     walk: string,
+    /**
+     * Swim like a fish
+     *
+     * Or a shark
+     * or even a whale
+     */
     swim: string,
+    /**
+     * Fly like a bird
+     *
+     * @since 2.1
+     */
     fly: string,
   }
 
+  /**
+   * @inline
+   */
   export type AnimalProperty = keyof Animal;
 
   /**

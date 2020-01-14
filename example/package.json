@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "doc": "typedoc-declare --out docs --mode file --declarationFile docs/index.d.ts --omitTag since --omitTag other",
-    "declaration": "typedoc-declare --mode file --declarationOnly --declarationFile docs/index.d.ts --omitTag since --omitTag other",
+    "doc": "typedoc-declare --out docs --mode file --declarationFile docs/index.d.ts --omitTag since --omitTag inline",
+    "declaration": "typedoc-declare --mode file --declarationOnly --declarationFile docs/index.d.ts --omitTag since --omitTag inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typedoc-plugin-typescript-declaration": "file:.."
+    "typedoc-plugin-typescript-declaration": "^0.2.0"
   },
   "dependencies": {}
 }

@@ -17,13 +17,13 @@ export const addKeysOptionMapping: { [key: string]: AddKeysTagOption } = {
   update: AddKeysTagOption.update,
 };
 
-@Component({ name: 'keyof-comment' })
-export class KeyOfCommentPlugin extends ConverterComponent {
+@Component({ name: 'keyof' })
+export class KeyOfPlugin extends ConverterComponent {
   @Option({
     name: 'keyofComments',
     type: ParameterType.Map,
-    help: 'Expands the values of the keyof operator and adds a tag, default is update which adds and updates keys',
-    defaultValue: AddKeysTagOption.update,
+    help: 'Expands the values of the keyof operator and adds a tag, default is set to off',
+    defaultValue: AddKeysTagOption.off,
     map: addKeysOptionMapping,
   })
   private _mode!: AddKeysTagOption;
@@ -35,13 +35,17 @@ export class KeyOfCommentPlugin extends ConverterComponent {
   }
 
   private onBeginResolve(context: Context) {
+    const resolver = KeyOfCommentResolver.instance();
     if (this._mode !== AddKeysTagOption.off) {
-      const resolver = KeyOfCommentResolver.instance();
       const override = this._mode === AddKeysTagOption.update;
 
       Object.values(context.project.reflections)
         .filter(item => resolver.shouldResolveKeys(context.project, item))
         .forEach(item => resolver.resolveKeys(context.project, item, override));
     }
+
+    Object.values(context.project.reflections)
+      .filter(item => resolver.shouldInlineKeys(context.project, item))
+      .forEach(item => resolver.inlineKeys(context.project, item));
   }
 }

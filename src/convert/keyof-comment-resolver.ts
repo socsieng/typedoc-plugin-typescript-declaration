@@ -7,9 +7,12 @@ import {
   Reflection,
   ReflectionKind,
   ReflectionType,
+  StringLiteralType,
   Type,
   TypeOperatorType,
+  UnionType,
 } from 'typedoc/dist/lib/models';
+import join from '../util/join';
 import { propertySorter } from '../util/sort';
 
 export default class KeyOfCommentResolver {
@@ -31,7 +34,7 @@ export default class KeyOfCommentResolver {
       node.comment.tags = [];
     }
 
-    let tag = node.comment?.tags?.find(t => t.tagName === 'keys');
+    let tag = node.comment.getTag('keys');
     if (tag) {
       if (override) {
         tag.text = keys;
@@ -58,6 +61,50 @@ export default class KeyOfCommentResolver {
     }
 
     return false;
+  }
+
+  public inlineKeys(project: ProjectReflection, reflection: Reflection) {
+    const node = reflection as DeclarationReflection;
+    const type = node.type as TypeOperatorType;
+    const reference = this.getDeclaration(project, type.target);
+
+    let keys = this.getKeys(reference)
+      .sort(propertySorter(r => r.id));
+
+    let types = keys.map(k => new StringLiteralType(k.name));
+
+    node.type = new UnionType(types);
+
+    if (!node.comment) {
+      node.comment = new Comment();
+    }
+
+    const lines: string[] = [];
+    if (node.comment.text) {
+      lines.push(node.comment.text, '');
+    }
+
+    lines.push('Options:', '',
+      ...keys.map(k => `- \`${k.name}\`${
+        k.comment?.shortText || k.comment?.text
+          ? `:\n${join('\n\n', k.comment.shortText, k.comment.text).replace(/\n$/, '').split(/\n/gm).map(l => `  ${l}`).join('\n')}`
+          : ''
+      }\n`)
+    );
+
+    node.comment.text = lines.join('\n');
+
+    // remove @inline tag
+    if (node.comment.tags) {
+      const index = node.comment.tags.findIndex(t => t.tagName === 'inline');
+      if (index !== -1) {
+        node.comment.tags.splice(index, 1);
+      }
+    }
+  }
+
+  public shouldInlineKeys(project: ProjectReflection, reflection: Reflection) {
+    return this.shouldResolveKeys(project, reflection) && reflection.comment?.getTag('inline');
   }
 
   private getDeclaration(project: ProjectReflection, type: Type) {

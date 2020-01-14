@@ -16,12 +16,15 @@ declare module test {
   }
 
   /**
+   * Options:
+   *
+   * - `on`
+   *
+   * - `off`
+   *
    * @keys `on`, `off`
    */
-  type DynamicType = keyof {
-    on: string,
-    off: string,
-  };
+  type DynamicType = "on" | "off";
 
   /**
    * Should leave these keys tag alone
@@ -39,4 +42,6 @@ declare module test {
      */
     off: string,
   };
+
+  type Reference = "on" | "off";
 }

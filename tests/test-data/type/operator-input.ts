@@ -11,6 +11,9 @@ export module test {
     failure: string;
   }
 
+  /**
+   * @inline
+   */
   export type DynamicType = keyof {
     on: string,
     off: string,
@@ -32,4 +35,6 @@ export module test {
      */
     off: string,
   };
+
+  export type Reference = "on" | "off";
 }
