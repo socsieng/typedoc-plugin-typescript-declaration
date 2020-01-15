@@ -62,16 +62,17 @@ export class CliApplication extends Application {
       let hasOutput = false;
 
       if (project) {
-        if (declarationFile) {
-          TypeScriptDeclarationPlugin.generateTypeDeclarations(project, sorOption, declarationFile);
-          hasOutput = true;
-        }
         if (out && !declarationOnly) {
           this.generateDocs(project, out);
           hasOutput = true;
         }
         if (json) {
           this.generateJson(project, json);
+          hasOutput = true;
+        }
+
+        if (declarationFile) {
+          TypeScriptDeclarationPlugin.generateTypeDeclarations(project, sorOption, declarationFile);
           hasOutput = true;
         }
 
