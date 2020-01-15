@@ -21,6 +21,12 @@ const externalDependencies = [
   'typedoc/dist/lib/utils/options/sources',
 ];
 
+function onwarn(warning, rollupWarn) {
+  if (warning.code !== 'CIRCULAR_DEPENDENCY') {
+    rollupWarn(warning);
+  }
+}
+
 export default [
   {
     input: 'src/index.ts',
@@ -32,6 +38,7 @@ export default [
     plugins: [
       typescript()
     ],
+    onwarn,
   },
   {
     input: 'src/themes/noop/theme.ts',
@@ -43,5 +50,6 @@ export default [
     plugins: [
       typescript()
     ],
+    onwarn,
   },
 ];
