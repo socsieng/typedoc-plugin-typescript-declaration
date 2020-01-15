@@ -16,7 +16,7 @@ const writeOutput = process.env['DEBUG_MODE'] !== 'none';
 
 const folders = ['test-data/**/*input.ts', 'test-data/**/*input.d.ts', 'test-data/**/*exact.d.ts']
   .map(f => glob.sync(f, { cwd: __dirname }))
-  .reduce((allFiles, files) => [...allFiles, ...files], [])
+  .flat()
   .map(f => [f]);
 
 function createApplication(logOutput: string[]) {

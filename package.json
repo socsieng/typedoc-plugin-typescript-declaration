@@ -11,10 +11,10 @@
   },
   "scripts": {
     "prepublishOnly": "npm run ci",
-    "ci": "DEBUG_MODE=none jest --ci && npm run build",
+    "ci": "DEBUG_MODE=none npm run build && jest --ci",
     "build": "rimraf dist && rollup -c",
-    "test:watch": "jest --watch",
-    "test": "jest --verbose"
+    "test:watch": "npm run build && jest --watch",
+    "test": "npm run build && jest --verbose"
   },
   "files": [
     "dist",
@@ -35,6 +35,7 @@
     "@types/jest": "^24.0.25",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
     "@typescript-eslint/parser": "^2.15.0",
+    "core-js": "^3.6.4",
     "eslint": "^6.8.0",
     "glob": "^7.1.6",
     "jest": "^24.9.0",

@@ -1,4 +1,8 @@
 module.exports = {
+  preset: "ts-jest",
+  setupFiles: [
+    'core-js'
+  ],
   roots: [
     '<rootDir>/bin',
     '<rootDir>/src',
@@ -12,4 +16,9 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)?$': 'ts-jest'
   },
+  globals: {
+    'ts-jest': {
+      tsConfig: 'tsconfig.json',
+    }
+  }
 }
