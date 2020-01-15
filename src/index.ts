@@ -1,4 +1,5 @@
 import { Application } from 'typedoc/dist/lib/application';
+import { CliApplication } from './cli-application';
 import { KeyOfPlugin } from './keyof-plugin';
 import { OmitTagsPlugin } from './omit-tags-plugin';
 import { TypeScriptDeclarationPlugin } from './typescript-declaration-plugin';
@@ -26,3 +27,4 @@ module.exports = (PluginHost: Application) => {
 }
 
 module.exports.options = options;
+module.exports.CliApplication = CliApplication;

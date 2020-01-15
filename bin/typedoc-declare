@@ -3,14 +3,9 @@
 const package = require('../package.json');
 const path = require('path');
 
-const isVersion = process.argv.find(arg => arg === '-v' || arg === '--version');
-if (isVersion) {
-  console.log(`${package.name} ${package.version}`);
-}
+const { CliApplication } = require('../dist/index');
 
-const cli = require('typedoc/dist/lib/cli');
-const app = new cli.CliApplication();
-
-app.bootstrap({
-  plugin: path.resolve(__dirname, '..'),
+const app = new CliApplication({
+  plugin: [path.resolve(__dirname, '..')],
 });
+app.start();

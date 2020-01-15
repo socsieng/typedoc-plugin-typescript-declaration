@@ -100,11 +100,15 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
   private onRenderBegin(event: RendererEvent) {
     this.veriftProject(event.project);
 
-    ReflectionFormatter.sortOption = this._sortOption;
+    TypeScriptDeclarationPlugin.generateTypeDeclarations(event.project, this._sortOption, this._declarationFile)
+  }
 
+  public static generateTypeDeclarations(project: ProjectReflection, sortOption: ReflectionSortFlags, filename?: string) {
     const formatter = ReflectionFormatter.instance();
+    let file = filename;
 
-    let file = this._declarationFile;
+    ReflectionFormatter.sortOption = sortOption;
+
     if (file) {
       file = path.resolve(process.cwd(), file);
 
@@ -114,7 +118,7 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
         mkdir.sync(directory);
       }
 
-      const result = formatter.render(event.project);
+      const result = formatter.render(project);
 
       fs.writeFileSync(file, result);
 

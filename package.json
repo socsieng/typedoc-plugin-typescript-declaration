@@ -1,6 +1,6 @@
 {
   "name": "typedoc-plugin-typescript-declaration",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Typedoc plugin to render to typescript declaration file",
   "main": "dist/index.js",
   "bin": {
@@ -33,6 +33,7 @@
   "devDependencies": {
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.25",
+    "@types/rimraf": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
     "@typescript-eslint/parser": "^2.15.0",
     "core-js": "^3.6.4",
