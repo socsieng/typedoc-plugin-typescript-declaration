@@ -1,17 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { CallbackLogger, SourceFileMode } from 'typedoc/dist/lib/utils';
 import ReflectionFormatter, { ReflectionSortFlags } from '../src/render/reflection-formatter';
 import { Application } from 'typedoc/dist/lib/application';
-import { CallbackLogger } from 'typedoc/dist/lib/utils';
 import KeyOfCommentResolver from '../src/convert/keyof-comment-resolver';
-import { SourceFileMode } from 'typedoc/dist/lib/converter/nodes/block';
+import { OmitTagsPlugin } from '../src/omit-tags-plugin';
 import { TSConfigReader } from 'typedoc/dist/lib/utils/options/readers';
 import { TypeDocAndTSOptions } from 'typedoc/dist/lib/utils/options/declaration';
 import Version from '../src/util/version';
 import VersionFilter from '../src/convert/version-filter';
 import glob from 'glob';
 import mkdir from 'make-dir';
-import { OmitTagsPlugin } from '../src/omit-tags-plugin';
 
 const writeOutput = process.env['DEBUG_MODE'] !== 'none';
 
@@ -32,7 +31,7 @@ function createApplication(logOutput: string[]) {
   const app = new Application();
   app.logger = new CallbackLogger((message: string) => { logOutput.push(message) });
 
-  app.options.addReader(new TSConfigReader())
+  app.options.addReader(new TSConfigReader());
 
   app.bootstrap(options);
 

@@ -1,40 +1,51 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Component, RendererComponent } from 'typedoc/dist/lib/output/components';
-import { ParameterHint, ParameterType, TypeDocOptions } from 'typedoc/dist/lib/utils/options/declaration';
+import { DeclarationOption, ParameterHint, ParameterType, TypeDocOptions } from 'typedoc/dist/lib/utils/options/declaration';
 import ReflectionFormatter, { ReflectionSortFlags, sortMapping } from './render/reflection-formatter';
-import { Option } from 'typedoc/dist/lib/utils';
 import { ProjectReflection } from 'typedoc/dist/lib/models';
 import { Renderer } from 'typedoc/dist/lib/output/renderer';
+import { RendererComponent } from 'typedoc/dist/lib/output/components';
 import { RendererEvent } from 'typedoc/dist/lib/output/events';
-import { SourceFileMode } from 'typedoc/dist/lib/converter/nodes/block';
+import { SourceFileMode } from 'typedoc/dist/lib/utils';
+import { bind } from './util/options';
 import mkdir from 'make-dir';
 
-@Component({ name: 'typescript-declaration' })
+const declarationFileOption = {
+  name: 'declarationFile',
+  hint: ParameterHint.File,
+  type: ParameterType.String,
+  help: 'The output file location to write the declaration to',
+} as DeclarationOption;
+
+const declarationOnlyOption = {
+  name: 'declarationOnly',
+  type: ParameterType.Boolean,
+  help: 'Render the type declaration file only, other renderers will be removed (must be used with --declarationFile option)',
+} as DeclarationOption;
+
+const sortOptionOption = {
+  name: 'sortOption',
+  type: ParameterType.Map,
+  help: 'Sort types in declaration file by name instead of the typedoc default',
+  defaultValue: ReflectionSortFlags.none,
+  map: sortMapping,
+} as DeclarationOption;
+
 export class TypeScriptDeclarationPlugin extends RendererComponent {
-  @Option({
-    name: 'declarationFile',
-    hint: ParameterHint.File,
-    type: ParameterType.String,
-    help: 'The output file location to write the declaration to',
-  })
-  private _declarationFile?: string;
+  static options = [
+    declarationFileOption,
+    declarationOnlyOption,
+    sortOptionOption,
+  ];
 
-  @Option({
-    name: 'declarationOnly',
-    type: ParameterType.Boolean,
-    help: 'Render the type declaration file only, other renderers will be removed (must be used with --declarationFile option)',
-  })
-  private _declarationOnly?: boolean;
+  @bind(declarationFileOption)
+  _declarationFile: string | undefined;
 
-  @Option({
-    name: 'sortOption',
-    type: ParameterType.Map,
-    help: 'Sort types in declaration file by name instead of the typedoc default',
-    defaultValue: ReflectionSortFlags.none,
-    map: sortMapping,
-  })
-  private _sortOption!: ReflectionSortFlags;
+  @bind(declarationOnlyOption)
+  _declarationOnly: boolean | undefined;
+
+  @bind(sortOptionOption)
+  _sortOption!: ReflectionSortFlags;
 
   protected initialize() {
     this.listenTo(this.owner, {

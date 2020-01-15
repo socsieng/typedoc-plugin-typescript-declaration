@@ -4,6 +4,7 @@ const externalDependencies = [
   'fs',
   'make-dir',
   'path',
+  'typedoc',
   'typedoc/dist/lib/converter',
   'typedoc/dist/lib/converter/components',
   'typedoc/dist/lib/converter/nodes/block',

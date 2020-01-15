@@ -1,20 +1,24 @@
 import { Context, Converter } from 'typedoc/dist/lib/converter';
-import { Component } from 'typedoc/dist/lib/output/components';
+import { DeclarationOption, ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
-import { Option } from 'typedoc/dist/lib/utils';
-import { ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
 import { Reflection } from 'typedoc/dist/lib/models';
 import Version from './util/version';
 import VersionFilter from './convert/version-filter';
+import { bind } from './util/options';
 
-@Component({ name: 'version-filter' })
+const maxVersionOption = {
+  name: 'maxVersion',
+  type: ParameterType.String,
+  help: 'The maxminum version number to include in the filter (compares against the `@since` tag)',
+} as DeclarationOption;
+
 export class VersionFilterPlugin extends ConverterComponent {
-  @Option({
-    name: 'maxVersion',
-    type: ParameterType.String,
-    help: 'The maxminum version number to include in the filter (compares against the `@since` tag)',
-  })
-  private _maxVersion?: string;
+  static options = [
+    maxVersionOption,
+  ];
+
+  @bind(maxVersionOption)
+  _maxVersion: string | undefined;
 
   private _version?: Version;
   private _excluded?: Reflection[];

@@ -1,9 +1,8 @@
 import { Context, Converter } from 'typedoc/dist/lib/converter';
-import { Component } from 'typedoc/dist/lib/output/components';
+import { DeclarationOption, ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
 import KeyOfCommentResolver from './convert/keyof-comment-resolver';
-import { Option } from 'typedoc/dist/lib/utils';
-import { ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
+import { bind } from './util/options';
 
 export enum AddKeysTagOption {
   off = 0,
@@ -17,16 +16,21 @@ export const addKeysOptionMapping: { [key: string]: AddKeysTagOption } = {
   update: AddKeysTagOption.update,
 };
 
-@Component({ name: 'keyof' })
+const keyofCommentsOption = {
+  name: 'keyofComments',
+  type: ParameterType.Map,
+  help: 'Expands the values of the keyof operator and adds a tag, default is set to off',
+  defaultValue: AddKeysTagOption.off,
+  map: addKeysOptionMapping,
+} as DeclarationOption;
+
 export class KeyOfPlugin extends ConverterComponent {
-  @Option({
-    name: 'keyofComments',
-    type: ParameterType.Map,
-    help: 'Expands the values of the keyof operator and adds a tag, default is set to off',
-    defaultValue: AddKeysTagOption.off,
-    map: addKeysOptionMapping,
-  })
-  private _mode!: AddKeysTagOption;
+  static options = [
+    keyofCommentsOption,
+  ];
+
+  @bind(keyofCommentsOption)
+  _mode!: AddKeysTagOption;
 
   protected initialize() {
     this.listenTo(this.owner, {
