@@ -1,6 +1,6 @@
 # typedoc-plugin-typescript-declaration
 
-[![Build Status](https://travis-ci.org/socsieng/typedoc-plugin-typescript-declaration.svg?branch=master)](https://travis-ci.org/socsieng/typedoc-plugin-typescript-declaration)
+[![Build Status](https://github.com/socsieng/typedoc-plugin-typescript-declaration/workflows/build/badge.svg)](https://github.com/socsieng/typedoc-plugin-typescript-declaration/actions?query=workflow%3A%22build%22)
 [![NPM Version](https://badge.fury.io/js/typedoc-plugin-typescript-declaration.svg)](https://badge.fury.io/js/typedoc-plugin-typescript-declaration)
 
 This is a Typedoc plugin that renders a TypeScript declaration file.
