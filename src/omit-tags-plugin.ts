@@ -1,8 +1,8 @@
 import { Context, Converter } from 'typedoc/dist/lib/converter';
 import { DeclarationOption, ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
+import { BindOption } from 'typedoc';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
 import { Reflection } from 'typedoc/dist/lib/models';
-import { bind } from './util/options';
 
 const omitTagOption = {
   name: 'omitTag',
@@ -15,8 +15,8 @@ export class OmitTagsPlugin extends ConverterComponent {
     omitTagOption,
   ];
 
-  @bind(omitTagOption)
-  _omitTags: string[] | undefined;
+  @BindOption(omitTagOption.name)
+  _omitTags?: string[];
 
   protected initialize() {
     this.listenTo(this.owner, {

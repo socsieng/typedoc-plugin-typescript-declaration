@@ -1,13 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { BindOption, SourceFileMode } from 'typedoc/dist/lib/utils';
 import { DeclarationOption, ParameterHint, ParameterType, TypeDocOptions } from 'typedoc/dist/lib/utils/options/declaration';
 import ReflectionFormatter, { ReflectionSortFlags, sortMapping } from './render/reflection-formatter';
 import { ProjectReflection } from 'typedoc/dist/lib/models';
 import { Renderer } from 'typedoc/dist/lib/output/renderer';
 import { RendererComponent } from 'typedoc/dist/lib/output/components';
 import { RendererEvent } from 'typedoc/dist/lib/output/events';
-import { SourceFileMode } from 'typedoc/dist/lib/utils';
-import { bind } from './util/options';
 import mkdir from 'make-dir';
 
 const declarationFileOption = {
@@ -38,13 +37,13 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
     sortOptionOption,
   ];
 
-  @bind(declarationFileOption)
-  _declarationFile: string | undefined;
+  @BindOption(declarationFileOption.name)
+  _declarationFile?: string;
 
-  @bind(declarationOnlyOption)
-  _declarationOnly: boolean | undefined;
+  @BindOption(declarationOnlyOption.name)
+  _declarationOnly?: boolean;
 
-  @bind(sortOptionOption)
+  @BindOption(sortOptionOption.name)
   _sortOption!: ReflectionSortFlags;
 
   protected initialize() {

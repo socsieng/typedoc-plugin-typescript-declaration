@@ -1,8 +1,8 @@
 import { Context, Converter } from 'typedoc/dist/lib/converter';
 import { DeclarationOption, ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
+import { BindOption } from 'typedoc/dist/lib/utils';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
 import KeyOfCommentResolver from './convert/keyof-comment-resolver';
-import { bind } from './util/options';
 
 export enum AddKeysTagOption {
   off = 0,
@@ -29,7 +29,7 @@ export class KeyOfPlugin extends ConverterComponent {
     keyofCommentsOption,
   ];
 
-  @bind(keyofCommentsOption)
+  @BindOption(keyofCommentsOption.name)
   _mode!: AddKeysTagOption;
 
   protected initialize() {

@@ -1,10 +1,10 @@
 import { Context, Converter } from 'typedoc/dist/lib/converter';
 import { DeclarationOption, ParameterType } from 'typedoc/dist/lib/utils/options/declaration';
+import { BindOption } from 'typedoc/dist/lib/utils';
 import { ConverterComponent } from 'typedoc/dist/lib/converter/components';
 import { Reflection } from 'typedoc/dist/lib/models';
 import Version from './util/version';
 import VersionFilter from './convert/version-filter';
-import { bind } from './util/options';
 
 const maxVersionOption = {
   name: 'maxVersion',
@@ -17,8 +17,8 @@ export class VersionFilterPlugin extends ConverterComponent {
     maxVersionOption,
   ];
 
-  @bind(maxVersionOption)
-  _maxVersion: string | undefined;
+  @BindOption(maxVersionOption.name)
+  _maxVersion?: string;
 
   private _version?: Version;
   private _excluded?: Reflection[];

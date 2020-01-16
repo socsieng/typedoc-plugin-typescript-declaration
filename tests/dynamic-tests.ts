@@ -11,6 +11,7 @@ import Version from '../src/util/version';
 import VersionFilter from '../src/convert/version-filter';
 import glob from 'glob';
 import mkdir from 'make-dir';
+import { resetReflectionID } from 'typedoc';
 
 const writeOutput = process.env['DEBUG_MODE'] !== 'none';
 
@@ -42,6 +43,8 @@ describe('Dynamic test suite', () => {
   test.each(folders)('should execute test: %s', (testFile) => {
     const logOutput: string[] = [];
     const app = createApplication(logOutput);
+
+    resetReflectionID();
 
     const project = app.convert([path.join(__dirname, testFile)]);
     const basename = testFile.replace(/(input|exact)(\.d)?\.ts$/i, '');
