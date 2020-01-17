@@ -108,6 +108,8 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
 
     ReflectionFormatter.sortOption = sortOption;
 
+    const result = formatter.render(project);
+
     if (file) {
       file = path.resolve(process.cwd(), file);
 
@@ -117,13 +119,11 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
         mkdir.sync(directory);
       }
 
-      const result = formatter.render(project);
-
       fs.writeFileSync(file, result);
 
       console.log(`TypeScript definition file written to ${file}.`);
     } else {
-      console.log('No TypeScript definition file written. Use the --declarationFile option to create a definition file.');
+      console.log(result);
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Application, ArgumentsReader, TSConfigReader, TypeDocAndTSOptions, TypeDocReader } from 'typedoc';
 import { ExitCode } from 'typedoc/dist/lib/cli';
+import PausableLogger from './util/pausable-logger';
 import { ReflectionSortFlags } from './render/reflection-formatter';
 import { TypeScriptDeclarationPlugin } from './typescript-declaration-plugin';
 import { getOptionsHelp } from 'typedoc/dist/lib/utils/options/help';
@@ -15,8 +16,18 @@ interface AdditionalOptions {
 export class CliApplication extends Application {
   private _inputFiles!: string[];
 
+  get pausableLogger() {
+    if (this.logger instanceof PausableLogger) {
+      return this.logger as PausableLogger;
+    }
+    return undefined;
+  }
+
   constructor(options?: Partial<TypeDocAndTSOptions>) {
     super();
+
+    this.logger = new PausableLogger();
+
     this.bootstrap(options);
   }
 
@@ -28,6 +39,7 @@ export class CliApplication extends Application {
 
     const result = super.bootstrap(options);
     if (result.hasErrors) {
+      this.pausableLogger?.resume();
       return process.exit(1);
     }
 
@@ -43,9 +55,8 @@ export class CliApplication extends Application {
     let { help, json, out, version } = options;
     let { declarationFile, declarationOnly, sorOption } = options as AdditionalOptions;
 
-    if (declarationOnly && !declarationFile) {
-      console.log('--declarationOnly must be used with the --declarationFile option');
-      process.exit(ExitCode.OptionError);
+    if (declarationFile) {
+      this.pausableLogger?.resume();
     }
 
     if (version) {
@@ -59,31 +70,23 @@ export class CliApplication extends Application {
     } else {
       const src = this.expandInputFiles(this._inputFiles);
       const project = this.convert(src);
-      let hasOutput = false;
 
       if (project) {
         if (out && !declarationOnly) {
           this.generateDocs(project, out);
-          hasOutput = true;
         }
         if (json) {
           this.generateJson(project, json);
-          hasOutput = true;
         }
 
-        if (declarationFile) {
-          TypeScriptDeclarationPlugin.generateTypeDeclarations(project, sorOption, declarationFile);
-          hasOutput = true;
-        }
-
-        if (!hasOutput) {
-          console.log('Nothing generated, use --declarationOnly, --out, or --json options');
-        }
+        TypeScriptDeclarationPlugin.generateTypeDeclarations(project, sorOption, declarationFile);
 
         if (this.logger.hasErrors()) {
+          this.pausableLogger?.resume();
           process.exit(ExitCode.OutputError);
         }
       } else {
+        this.pausableLogger?.resume();
         process.exit(ExitCode.CompileError);
       }
     }

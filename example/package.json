@@ -10,8 +10,8 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "typedoc-plugin-typescript-declaration": "^0.2.6"
-  },
-  "dependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "typedoc-plugin-typescript-declaration": "^0.2.7"
+  }
 }

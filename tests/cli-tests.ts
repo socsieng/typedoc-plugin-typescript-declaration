@@ -118,4 +118,22 @@ describe('Document generation', () => {
       done();
     });
   });
+
+  it('should write declaration content to stdout', (done) => {
+    const options = ['index.ts'];
+    execFile(binFile, options, { cwd: exampleDir }, (err, stdout, stderr) => {
+      if (err) {
+        handleError(err.code, stdout, stderr);
+      }
+      expect(err).toBeNull();
+
+      expect(stdout).toMatch(/^declare/);
+      expect(stdout).toMatch(/\}\s*$/);
+
+      expect(fs.existsSync(docsDir)).toEqual(false);
+      expect(fs.existsSync(decsFile)).toEqual(false);
+
+      done();
+    });
+  });
 });
