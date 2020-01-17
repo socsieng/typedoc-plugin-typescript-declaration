@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typedoc-plugin-typescript-declaration": "^0.2.3"
+    "typedoc-plugin-typescript-declaration": "^0.2.6"
   },
   "dependencies": {}
 }
