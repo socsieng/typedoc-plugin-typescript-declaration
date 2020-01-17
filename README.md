@@ -89,3 +89,50 @@ node_modules/.bin/typedoc --declarationFile docs/v1.0/index.d.ts --maxVersion 1.
 # write declaration file for types with a max version of 2.0
 node_modules/.bin/typedoc --declarationFile docs/v2.0/index.d.ts --maxVersion 2.0
 ```
+
+## Inlining `keyof` types
+
+You can use this plugin to *@inline* `keyof` types directly into a union to produce a more concise document and `.d.ts` file.
+
+In addition to comments for each of the keys will also be documented as part of the `@inline` type.
+
+### Example
+
+Sample file:
+
+```ts
+/**
+ * @inline
+ */
+type SwitchState = keyof {
+  /**
+   * Switch is on
+   */
+  on: string,
+  /**
+   * Switch is off
+   */
+  off: string,
+  /**
+   * State of the switch is uknown
+   * 
+   * @since 2.0
+   */
+  unknown: string,
+};
+```
+
+Produces the following (with `--maxVersion 1.0`):
+
+```ts
+/**
+ * Options:
+ *
+ * - `on`:
+ *   Switch is on
+ *
+ * - `off`:
+ *   Switch is off
+ */
+type SwitchState = "on" | "off";
+```
