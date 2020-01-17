@@ -26,10 +26,10 @@ export default class TypeLiteralRenderer extends ContainerRenderer {
       } else {
         lines.push(join(' ', '{', member.children.map(c => ReflectionFormatter.instance().render(c)).join(', '), '}'));
       }
-    }
-
-    if (member.signatures) {
+    } else if (member.signatures) {
       lines.push(ReflectionFormatter.instance().render(member.signatures[0]));
+    } else if (member.name === '__type') {
+      lines.push('{}');
     }
 
     return lines.join('\n');
