@@ -12,6 +12,6 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
-    "typedoc-plugin-typescript-declaration": "^0.2.7"
+    "typedoc-plugin-typescript-declaration": "^0.2.9"
   }
 }

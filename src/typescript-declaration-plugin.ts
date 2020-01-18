@@ -98,8 +98,6 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
 
   private onRenderBegin(event: RendererEvent) {
     this.veriftProject(event.project);
-
-    TypeScriptDeclarationPlugin.generateTypeDeclarations(event.project, this._sortOption, this._declarationFile)
   }
 
   public static generateTypeDeclarations(project: ProjectReflection, sortOption: ReflectionSortFlags, filename?: string) {

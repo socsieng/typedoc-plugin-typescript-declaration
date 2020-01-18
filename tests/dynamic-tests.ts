@@ -1,17 +1,18 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { CallbackLogger, SourceFileMode } from 'typedoc/dist/lib/utils';
+import { DeclarationReflection, ReflectionKind, resetReflectionID } from 'typedoc';
 import ReflectionFormatter, { ReflectionSortFlags } from '../src/render/reflection-formatter';
 import { Application } from 'typedoc/dist/lib/application';
 import KeyOfCommentResolver from '../src/convert/keyof-comment-resolver';
 import { OmitTagsPlugin } from '../src/omit-tags-plugin';
 import { TSConfigReader } from 'typedoc/dist/lib/utils/options/readers';
 import { TypeDocAndTSOptions } from 'typedoc/dist/lib/utils/options/declaration';
+import UnresolvedTypesMapper from '../src/convert/unresolved-types-mapper';
 import Version from '../src/util/version';
 import VersionFilter from '../src/convert/version-filter';
 import glob from 'glob';
 import mkdir from 'make-dir';
-import { resetReflectionID } from 'typedoc';
 
 const writeOutput = process.env['DEBUG_MODE'] !== 'none';
 
@@ -61,6 +62,19 @@ describe('Dynamic test suite', () => {
       const outputDeclarationFile = `${path.join(ouputBase, basename)}${outputSuffix}.d.ts`;
       const outputDirectory = path.dirname(outputJsonFile);
 
+      if (writeOutput) {
+        mkdir.sync(outputDirectory);
+
+        fs.writeFileSync(outputJsonFile, JSON.stringify(app.serializer.toObject(project), null, '  '));
+      }
+
+      // plugin simulation related activities
+      const unresolvedMapper = new UnresolvedTypesMapper(project);
+      unresolvedMapper.registerKnownReflections(Object.values(project.reflections));
+      unresolvedMapper.registerKnownReflections([
+        new DeclarationReflection('Hidden', ReflectionKind.Class),
+      ]);
+
       const filter = VersionFilter.instance();
       const keyOfResolver = KeyOfCommentResolver.instance();
 
@@ -74,12 +88,9 @@ describe('Dynamic test suite', () => {
 
       OmitTagsPlugin.removeTags(Object.values(project.reflections), ['stuff']);
 
-      if (writeOutput) {
-        mkdir.sync(outputDirectory);
+      unresolvedMapper.resolve();
 
-        fs.writeFileSync(outputJsonFile, JSON.stringify(app.serializer.toObject(project), null, '  '));
-      }
-
+      // render content
       const result = formatter.render(project);
 
       if (writeOutput) {

@@ -1,4 +1,15 @@
-import { ArrayType, ConditionalType, IndexedAccessType, IntrinsicType, PredicateType, ReferenceType, TypeOperatorType, TypeParameterType, UnionType } from 'typedoc/dist/lib/models';
+import {
+  ArrayType,
+  ConditionalType,
+  IndexedAccessType,
+  IntrinsicType,
+  PredicateType,
+  ReferenceType,
+  StringLiteralType,
+  TypeOperatorType,
+  TypeParameterType,
+  UnionType,
+} from 'typedoc/dist/lib/models';
 import TypeFormatter from './type-formatter';
 
 it('should format intrinsic type', () => {
@@ -61,9 +72,9 @@ it('should format conditional type', () => {
 it('should format indexed access type', () => {
   const type = new IndexedAccessType(
     new IntrinsicType('object'), // object type
-    new IntrinsicType('string'), // index type
+    new StringLiteralType('string'), // index type
   );
-  expect(TypeFormatter.format(type)).toEqual('{ [key: string]: object }');
+  expect(TypeFormatter.format(type)).toEqual('object["string"]');
 });
 
 it('should format predecate type', () => {

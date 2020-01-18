@@ -17,14 +17,15 @@ export default class TypeLiteralRenderer extends ContainerRenderer {
 
     const member = node as DeclarationReflection;
 
-    if (member.children) {
+    if (member.children || member.indexSignature) {
+      const children = [...(member.children || []), member.indexSignature].filter(c => c);
       if (node.parent?.kind === ReflectionKind.TypeAlias) {
         const body = this.renderBody(member, 1, ',');
         if (body) {
           lines.push('{', body, '}');
         }
       } else {
-        lines.push(join(' ', '{', member.children.map(c => ReflectionFormatter.instance().render(c)).join(', '), '}'));
+        lines.push(join(' ', '{', children.map(c => ReflectionFormatter.instance().render(c)).join(', '), '}'));
       }
     } else if (member.signatures) {
       lines.push(ReflectionFormatter.instance().render(member.signatures[0]));

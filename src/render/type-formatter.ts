@@ -29,7 +29,7 @@ export default class TypeFormatter {
 
     if (type.type === 'indexedAccess') {
       const indexType = type as IndexedAccessType;
-      return `{ [key: ${TypeFormatter.format(indexType.indexType)}]: ${TypeFormatter.format(indexType.objectType)} }`;
+      return `${TypeFormatter.format(indexType.objectType)}[${TypeFormatter.format(indexType.indexType)}]`;
     }
 
     if (type.type === 'intersection') {

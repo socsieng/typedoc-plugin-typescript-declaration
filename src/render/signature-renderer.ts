@@ -22,7 +22,7 @@ export default abstract class SignatureRenderer extends ReflectionRenderer {
 
   protected renderReturnType(method: SignatureReflection): string {
     if (method.type) {
-      return `${method.parent?.kind === ReflectionKind.TypeLiteral ? ' =>': ':'} ${TypeFormatter.format(method.type, { includeConstraints: false })}`;
+      return `${method.parent?.kind === ReflectionKind.TypeLiteral && method.kind !== ReflectionKind.IndexSignature ? ' =>': ':'} ${TypeFormatter.format(method.type, { includeConstraints: false })}`;
     }
     return '';
   }
