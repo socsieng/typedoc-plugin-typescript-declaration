@@ -15,7 +15,23 @@ export module test {
    * @inline
    */
   export type DynamicType = keyof {
+    /**
+     * Represents the on state.
+     *
+     * Examples of things that can be turned on:
+     *
+     * - light
+     * - kettle
+     */
     on: string,
+    /**
+     * Represents the off state.
+     *
+     * Examples of things that can be turned off:
+     *
+     * - switch
+     * - television
+     */
     off: string,
   };
 

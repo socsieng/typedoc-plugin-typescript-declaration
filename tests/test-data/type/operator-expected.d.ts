@@ -18,9 +18,21 @@ declare module test {
   /**
    * Options:
    *
-   * - `on`
+   * - `on`:
+   *   Represents the on state.
    *
-   * - `off`
+   *   Examples of things that can be turned on:
+   *
+   *   - light
+   *   - kettle
+   *
+   * - `off`:
+   *   Represents the off state.
+   *
+   *   Examples of things that can be turned off:
+   *
+   *   - switch
+   *   - television
    *
    * @keys `on`, `off`
    */
