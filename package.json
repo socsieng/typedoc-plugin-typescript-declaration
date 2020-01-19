@@ -14,7 +14,8 @@
     "ci": "DEBUG_MODE=none npm run build && jest --ci",
     "build": "rimraf dist && rollup -c",
     "test:watch": "npm run build && jest --watch",
-    "test": "npm run build && jest --verbose"
+    "test": "npm run build && jest --verbose",
+    "tag": "git tag -f \"v$(bin/version)\""
   },
   "files": [
     "dist",
