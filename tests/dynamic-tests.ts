@@ -40,6 +40,10 @@ function createApplication(logOutput: string[]) {
   return app;
 }
 
+function removeBlankLines(input: string) {
+  return input.replace(/^$\r?\n/gm, '');
+}
+
 describe('Dynamic test suite', () => {
   test.each(folders)('should execute test: %s', (testFile) => {
     const logOutput: string[] = [];
@@ -96,7 +100,7 @@ describe('Dynamic test suite', () => {
       if (writeOutput) {
         fs.writeFileSync(outputDeclarationFile, result);
       }
-      expect(result).toBe(expectedOutput.trim());
+      expect(removeBlankLines(result)).toBe(removeBlankLines(expectedOutput.trim()));
     } else {
       console.log(logOutput.join('\n'));
       expect(logOutput).toEqual([]);
