@@ -15,12 +15,20 @@ declare module Unmapped {
     hidden: Hidden;
     notHidden: NotHidden;
     newClass: NewClass;
+    child: NewModule.MyChild;
     doStuff1<T extends Hidden | NotHidden | OtherClass>(param: T): void;
     doStuff2<T extends Hidden & NotHidden & OtherClass>(param: T): void;
   }
 
   class OtherClass {
     [key: number]: Hidden;
+  }
+
+  /**
+   * @since 2.0
+   */
+  module NewModule {
+    type MyChild = "good" | "bad";
   }
 
   type Union1 = Hidden | NotHidden;

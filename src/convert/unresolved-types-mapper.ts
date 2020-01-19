@@ -39,7 +39,10 @@ export default class UnresolvedTypesMapper {
   public registerKnownReflection(reflection: Reflection) {
     this._knownReflections.add(reflection);
     if (reflection.kindOf(ReflectionKind.ClassOrInterface | ReflectionKind.TypeAlias | ReflectionKind.SomeModule)) {
-      this._knownReflectionNames.add(reflection.name);
+      const namespace = reflection.getFullName('.').split('.');
+      for (let i = 0; i < namespace.length; i++) {
+        this._knownReflectionNames.add(namespace.slice(i).join('.'));
+      }
     }
   }
 

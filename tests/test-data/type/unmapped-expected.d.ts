@@ -3,6 +3,7 @@ declare module Unmapped {
     hidden: unknown;
     notHidden: NotHidden;
     newClass: unknown;
+    child: unknown;
     doStuff1<T extends NotHidden | OtherClass>(param: T): void;
     doStuff2<T extends unknown & NotHidden & OtherClass>(param: T): void;
   }
