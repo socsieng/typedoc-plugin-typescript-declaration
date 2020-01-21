@@ -101,24 +101,6 @@ describe('Document generation', () => {
     });
   });
 
-  it('should build example documents with docs and declarationFile option', (done) => {
-    const options = toOptionsArray({
-      out: 'docs/test',
-      declarationFile: 'docs/test.d.ts',
-    });
-    execFile(binFile, options, { cwd: exampleDir }, (err, stdout, stderr) => {
-      if (err) {
-        handleError(err.code, stdout, stderr);
-      }
-      expect(err).toBeNull();
-
-      expect(fs.existsSync(docsDir)).toEqual(true);
-      expect(fs.existsSync(decsFile)).toEqual(true);
-
-      done();
-    });
-  });
-
   it('should write declaration content to stdout', (done) => {
     const options = ['index.ts'];
     execFile(binFile, options, { cwd: exampleDir }, (err, stdout, stderr) => {
@@ -132,6 +114,25 @@ describe('Document generation', () => {
 
       expect(fs.existsSync(docsDir)).toEqual(false);
       expect(fs.existsSync(decsFile)).toEqual(false);
+
+      done();
+    });
+  });
+
+  it('should build example documents with docs and declarationFile option', (done) => {
+    const options = toOptionsArray({
+      out: 'docs/test',
+      declarationFile: 'docs/test.d.ts',
+      json: 'docs/test.json',
+    }).concat('--removeSource', 'index.ts');
+    execFile(binFile, options, { cwd: exampleDir }, (err, stdout, stderr) => {
+      if (err) {
+        handleError(err.code, stdout, stderr);
+      }
+      expect(err).toBeNull();
+
+      expect(fs.existsSync(docsDir)).toEqual(true);
+      expect(fs.existsSync(decsFile)).toEqual(true);
 
       done();
     });

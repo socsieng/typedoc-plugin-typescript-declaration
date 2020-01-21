@@ -62,7 +62,7 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
     if (options.declarationOnly || !options.out) {
       app.options.setValue('out', './docs');
       app.options.setValue('disableOutputCheck', true);
-      app.options.setValue('declarationOnly', true);
+      app.options.setValue(declarationOnlyOption.name, true);
 
       if (options.mode === undefined) {
         app.options.setValue('mode', SourceFileMode.File);
