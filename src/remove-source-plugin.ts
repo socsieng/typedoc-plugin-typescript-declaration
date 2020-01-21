@@ -27,9 +27,7 @@ export class RemoveSourcePlugin extends ConverterComponent {
   private onEndResolve(context: Context) {
     if (this._removeSource) {
       Object.values(context.project.reflections).forEach(reflection => {
-        console.log('removing', reflection.sources?.length);
         reflection.sources = undefined;
-        console.log('removed');
       });
     }
   }
