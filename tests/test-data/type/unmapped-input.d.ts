@@ -57,4 +57,6 @@ declare module Unmapped {
   function doSomething16(param: { [key: string]: Hidden }): void;
   function doSomething17(): [Hidden | undefined, Hidden];
   function doSomething18(param: {}): [Hidden | undefined, Hidden];
+  function doSomething19(): Hidden | undefined | null;
+  function doSomething20(): Hidden | undefined | null | unknown;
 }

@@ -38,4 +38,6 @@ declare module Unmapped {
   function doSomething16(param: { [key: string]: unknown }): void;
   function doSomething17(): [unknown | undefined, unknown];
   function doSomething18(param: {}): [unknown | undefined, unknown];
+  function doSomething19(): unknown | undefined | null;
+  function doSomething20(): undefined | null | unknown;
 }

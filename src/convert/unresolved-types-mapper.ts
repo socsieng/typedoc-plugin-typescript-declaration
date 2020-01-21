@@ -93,20 +93,25 @@ export default class UnresolvedTypesMapper {
   private remapType<T extends Type | undefined>(type: T): T extends undefined ? undefined : T;
   private remapType(type: Type | undefined) {
     if (type instanceof UnionType) {
-      let items = type.types.filter(t => this.isMapped(t));
-      if (items.length === 0) {
-        items = type.types.map(t => this.remapType(t));
-      } else if (items.length === 1) {
-        const item = items[0];
-        if ((item instanceof IntrinsicType) && (item.name === 'undefined' || item.name === 'null')) {
-          items = type.types.map(t => this.remapType(t));
-        }
-      }
+      // filter out any unmapped types
+      let mapped = type.types.filter(t => this.isMapped(t));
 
-      if (items.length === 1) {
-        return items[0];
+      // filter out null/undefined type
+      let nullTypes = mapped.filter(t => (t instanceof IntrinsicType) && (t.name === 'undefined' || t.name === 'null'));
+
+      if (mapped.length === 0 || mapped.length === nullTypes.length) {
+        // remap type
+        mapped = type.types.map(t => this.remapType(t));
+      }
+      // otherwise, do nothing, mapped already contains filtered list
+
+      // get unique list of types from remapped types
+      mapped = mapped.filter((type, index, array) => array.findIndex(item => type.equals(item)) === index);
+
+      if (mapped.length === 1) {
+        return mapped[0];
       } else {
-        type.types = items;
+        type.types = mapped;
       }
     } else if (type instanceof IntersectionType) {
       type.types = type.types.map(t => this.remapType(t));
