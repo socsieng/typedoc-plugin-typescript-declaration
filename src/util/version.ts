@@ -47,6 +47,10 @@ export default class Version {
       return 1;
     } else if ((a.build || 0) < (b.build || 0)) {
       return -1;
+    } else if (!a.suffix && b.suffix) {
+      return 1;
+    } else if (a.suffix && !b.suffix) {
+      return -1;
     } else if ((a.suffix || '') > (b.suffix || '')) {
       return 1;
     } else if ((a.suffix || '') < (b.suffix || '')) {
