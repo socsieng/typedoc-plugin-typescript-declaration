@@ -7,3 +7,5 @@ declare enum MyEnum {
   knee = 2,
   toe = 5,
 }
+
+declare type MyEnumStrings = keyof typeof MyEnum;

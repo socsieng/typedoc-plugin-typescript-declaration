@@ -1,4 +1,20 @@
-import { ArrayType, ConditionalType, IndexedAccessType, IntersectionType, IntrinsicType, PredicateType, ReferenceType, ReflectionType, StringLiteralType, TupleType, Type, TypeOperatorType, TypeParameterType, UnionType } from 'typedoc/dist/lib/models';
+import {
+ArrayType,
+ConditionalType,
+IndexedAccessType,
+IntersectionType,
+IntrinsicType,
+PredicateType,
+QueryType,
+ReferenceType,
+ReflectionType,
+StringLiteralType,
+TupleType,
+Type,
+TypeOperatorType,
+TypeParameterType,
+UnionType,
+} from 'typedoc/dist/lib/models';
 import ReflectionFormatter from './reflection-formatter';
 
 interface TypeFormatterOptions {
@@ -90,6 +106,10 @@ export default class TypeFormatter {
           return !mergedOptions.isOptionalType || !(intrinsicType.type === 'intrinsic' && intrinsicType.name === 'undefined');
         })
         .map(t => TypeFormatter.format(t)).join(' | ');
+    }
+
+    if (type.type === 'query') {
+      return `typeof ${TypeFormatter.format((type as QueryType).queryType)}`;
     }
 
     const other = type as any;

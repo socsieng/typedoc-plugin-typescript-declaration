@@ -7,3 +7,5 @@ export enum MyEnum {
   knee = 2,
   toe = 5,
 }
+
+export type MyEnumStrings = keyof typeof MyEnum;
