@@ -83,11 +83,9 @@ describe('Dynamic test suite', () => {
       const keyOfResolver = KeyOfCommentResolver.instance();
 
       const reflectionsToRemove = filter.filterReflections(Object.values(project.reflections), Version.parse('1.0'));
-      const reflectionsWithKeys = Object.values(project.reflections).filter(r => keyOfResolver.shouldResolveKeys(project, r));
       const reflectionsToInline = Object.values(project.reflections).filter(r => keyOfResolver.shouldInlineKeys(project, r));
 
       filter.removeReflections(project, reflectionsToRemove);
-      reflectionsWithKeys.forEach(r => keyOfResolver.resolveKeys(project, r));
       reflectionsToInline.forEach(r => keyOfResolver.inlineKeys(project, r));
 
       OmitTagsPlugin.removeTags(Object.values(project.reflections), ['stuff']);

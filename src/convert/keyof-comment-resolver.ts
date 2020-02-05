@@ -1,6 +1,5 @@
 import {
   Comment,
-  CommentTag,
   DeclarationReflection,
   ProjectReflection,
   ReferenceType,
@@ -16,35 +15,6 @@ import join from '../util/join';
 import { propertySorter } from '../util/sort';
 
 export default class KeyOfCommentResolver {
-  public resolveKeys(project: ProjectReflection, reflection: Reflection, override: boolean = false) {
-    const node = reflection as DeclarationReflection;
-    const type = node.type as TypeOperatorType;
-    const reference = this.getDeclaration(project, type.target);
-
-    let keys = this.getKeys(reference)
-      .sort(propertySorter(r => r.id))
-      .map(r => type.target?.type === 'reference' ? `[[${(type.target as ReferenceType)?.name}.${r.name}|\`${r.name}\`]]` : `\`${r.name}\``)
-      .join(', ');
-
-    if (!node.comment) {
-      node.comment = new Comment();
-    }
-
-    if (!node.comment.tags) {
-      node.comment.tags = [];
-    }
-
-    let tag = node.comment.getTag('keys');
-    if (tag) {
-      if (override) {
-        tag.text = keys;
-      }
-    } else {
-      tag = new CommentTag('keys', undefined, keys);
-      node.comment.tags.push(tag);
-    }
-  }
-
   public shouldResolveKeys(project: ProjectReflection, reflection: Reflection) {
     const node = reflection as DeclarationReflection;
 

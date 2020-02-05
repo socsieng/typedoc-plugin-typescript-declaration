@@ -35,22 +35,5 @@ export module test {
     off: string,
   };
 
-  /**
-   * Should leave these keys tag alone
-   *
-   * @keys on | off
-   * | ON | OFF
-   */
-  export type LeaveThisAlone = keyof {
-    /**
-     * Turns stuff on
-     */
-    on: string,
-    /**
-     * Turns stuff off
-     */
-    off: string,
-  };
-
   export type Reference = "on" | "off";
 }
