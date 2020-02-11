@@ -40,8 +40,8 @@ function createApplication(logOutput: string[]) {
   return app;
 }
 
-function removeBlankLines(input: string) {
-  return input.replace(/^$\r?\n/gm, '');
+function normalizeWhitespace(input: string) {
+  return input.replace(/^$\r?\n/gm, '').replace(/\s+/gm, '');
 }
 
 describe('Dynamic test suite', () => {
@@ -98,7 +98,7 @@ describe('Dynamic test suite', () => {
       if (writeOutput) {
         fs.writeFileSync(outputDeclarationFile, result);
       }
-      expect(removeBlankLines(result)).toBe(removeBlankLines(expectedOutput.trim()));
+      expect(normalizeWhitespace(result)).toBe(normalizeWhitespace(expectedOutput.trim()));
     } else {
       console.log(logOutput.join('\n'));
       expect(logOutput).toEqual([]);

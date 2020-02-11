@@ -24,8 +24,8 @@ export default class CommentRenderer {
       const paramsSection: string[] = [];
       if (signature.parameters) {
         const paramComments = signature.parameters
-          .filter(p => p.comment?.text)
-          .map(p => this.renderMultilineComment(`@param ${p.name}`, p.comment!.text!))
+          .filter(p => p.comment?.text || p.comment?.shortText)
+          .map(p => this.renderMultilineComment(`@param ${p.name}`, p.comment?.text || p.comment?.shortText || ''))
           .join('\n');
 
         if (paramComments.length) {

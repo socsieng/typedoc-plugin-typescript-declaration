@@ -10,12 +10,14 @@ export default class TypeLiteralRenderer extends ContainerRenderer {
 
   public render(node: Reflection): string {
     const lines: string[] = [];
+    const member = node as DeclarationReflection;
+    let indent = false;
 
-    if (node.comment) {
+    if (member.signatures && member.signatures[0]?.comment) {
+      indent = true;
+    } else if (node.comment) {
       this.pushIfTruthy(lines, this.renderComment(node));
     }
-
-    const member = node as DeclarationReflection;
 
     if (member.children || member.indexSignature) {
       const children = [...(member.children || []), member.indexSignature].filter(c => c);
@@ -28,7 +30,12 @@ export default class TypeLiteralRenderer extends ContainerRenderer {
         lines.push(join(' ', '{', children.map(c => ReflectionFormatter.instance().render(c)).join(', '), '}'));
       }
     } else if (member.signatures) {
-      lines.push(ReflectionFormatter.instance().render(member.signatures[0]));
+      let signature = ReflectionFormatter.instance().render(member.signatures[0]);
+      if (indent) {
+        lines.push('\n');
+        signature = signature.split('\n').map(l => `  ${l}`).join('\n');
+      }
+      lines.push(signature);
     } else if (member.name === '__type') {
       lines.push('{}');
     }
