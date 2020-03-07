@@ -50,6 +50,6 @@
   },
   "dependencies": {
     "make-dir": "^3.0.0",
-    "typedoc": "^0.16.7"
+    "typedoc": "^0.16.11"
   }
 }
