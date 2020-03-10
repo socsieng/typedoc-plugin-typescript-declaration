@@ -1,4 +1,4 @@
-declare module test {
+declare namespace test {
   /**
    * Adds many numbers together
    */

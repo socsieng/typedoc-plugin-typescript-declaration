@@ -41,7 +41,7 @@ function createApplication(logOutput: string[]) {
 }
 
 function normalizeWhitespace(input: string) {
-  return input.replace(/^$\r?\n/gm, '').replace(/\s+/gm, '');
+  return input.replace(/^$\r?\n/gm, '').replace(/\s+$/gm, '');
 }
 
 describe('Dynamic test suite', () => {

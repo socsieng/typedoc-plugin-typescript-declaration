@@ -1,4 +1,4 @@
-declare module TagsTest {
+declare namespace TagsTest {
   /**
    * @stuff
    */

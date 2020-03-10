@@ -1,4 +1,4 @@
-declare module Unmapped {
+declare namespace Unmapped {
   /**
    * @hidden
   */
@@ -27,7 +27,7 @@ declare module Unmapped {
   /**
    * @since 2.0
    */
-  module NewModule {
+  namespace NewModule {
     type MyChild = "good" | "bad";
   }
 

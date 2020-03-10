@@ -1,4 +1,4 @@
-declare module Types {
+declare namespace Types {
   interface OptionsInterface {
     parameters: {};
   }

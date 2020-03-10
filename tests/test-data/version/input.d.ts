@@ -3,11 +3,11 @@
  *
  * Note that tests run with a max version of 1.0
  */
-declare module VersionTest {
+declare namespace VersionTest {
   /**
    * @since 0.1
    */
-  module OldModule {
+  namespace OldModule {
     function doSomething(): void;
     /**
      * @since 1.0
@@ -18,7 +18,7 @@ declare module VersionTest {
   /**
    * @since 1.0
    */
-  module ExistingModule {
+  namespace ExistingModule {
     /**
      * @since 1.0
      */
@@ -37,7 +37,7 @@ declare module VersionTest {
   /**
    * @since 1.1
    */
-  module NewModule {
+  namespace NewModule {
     function doSomething(): void;
   }
 

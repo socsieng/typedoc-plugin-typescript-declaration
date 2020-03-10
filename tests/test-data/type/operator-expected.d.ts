@@ -1,4 +1,4 @@
-declare module test {
+declare namespace test {
   type StatusType = keyof StatusTypes;
 
   type StatusTypes = {

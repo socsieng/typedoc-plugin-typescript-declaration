@@ -1,7 +1,7 @@
 /**
  * @sortoption container
  */
-declare module Module {
+declare namespace Module {
   /**
    * @sortoption leaf
    */
@@ -19,7 +19,7 @@ declare module Module {
     propA: number;
   }
 
-  module Module {
+  namespace Module {
     class ClassA {
       propA: number;
 
@@ -37,7 +37,7 @@ declare module Module {
     /**
      * @sortoption leaf
      */
-    module ModuleA {
+    namespace ModuleA {
       class ClassB {
         propA: number;
 
@@ -56,7 +56,7 @@ declare module Module {
     /**
      * @sortoption all
      */
-    module ModuleB {
+    namespace ModuleB {
       class ClassA {
         propA: number;
 
@@ -75,7 +75,7 @@ declare module Module {
     /**
      * @sortoption none
      */
-    module ModuleC {
+    namespace ModuleC {
       class ClassB {
         propB: number;
 

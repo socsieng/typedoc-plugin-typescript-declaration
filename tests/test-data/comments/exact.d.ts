@@ -1,4 +1,4 @@
-declare module CommentsTest {
+declare namespace CommentsTest {
   /**
    * This is the comment's short text
    *

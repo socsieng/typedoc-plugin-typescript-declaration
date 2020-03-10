@@ -6,7 +6,7 @@ import join from '../util/join';
 import { propertySorter } from '../util/sort';
 
 export default class ContainerRenderer extends ReflectionRenderer {
-  private _type: string;
+  protected _type: string;
 
   constructor(type: string) {
     super();

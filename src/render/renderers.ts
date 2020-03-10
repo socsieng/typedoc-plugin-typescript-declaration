@@ -8,6 +8,7 @@ import FunctionRenderer from './function-renderer';
 import GetSignatureRenderer from './get-signature-renderer';
 import IndexSignatureRenderer from './index-signature-renderer';
 import MethodRenderer from './method-renderer';
+import ModuleRenderer from './module-renderer';
 import ObjectLiteralRenderer from './object-literal-renderer';
 import ParameterRenderer from './parameter-renderer';
 import ProjectRenderer from './project-renderer';
@@ -28,14 +29,14 @@ export const renderers: { [kind: number]: ReflectionRenderer } = {
   [ReflectionKind.Enum]: new ContainerRenderer('enum'),
   [ReflectionKind.EnumMember]: new EnumMemberRenderer(),
   [ReflectionKind.Event]: new EventRenderer(),
-  [ReflectionKind.ExternalModule]: new ContainerRenderer('module'),
+  [ReflectionKind.ExternalModule]: new ModuleRenderer(),
   [ReflectionKind.Function]: new FunctionRenderer(),
   [ReflectionKind.GetSignature]: new GetSignatureRenderer(),
   [ReflectionKind.Global]: new ProjectRenderer(),
   [ReflectionKind.IndexSignature]: new IndexSignatureRenderer(),
   [ReflectionKind.Interface]: new ContainerRenderer('interface'),
   [ReflectionKind.Method]: new MethodRenderer(),
-  [ReflectionKind.Module]: new ContainerRenderer('module'),
+  [ReflectionKind.Module]: new ModuleRenderer(),
   [ReflectionKind.ObjectLiteral]: new ObjectLiteralRenderer(),
   [ReflectionKind.Parameter]: new ParameterRenderer(),
   [ReflectionKind.Property]: new PropertyRenderer(),

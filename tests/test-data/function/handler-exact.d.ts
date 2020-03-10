@@ -1,4 +1,4 @@
-declare module Handlers {
+declare namespace Handlers {
   type MyUncommentedHandler = (foo: any) => any;
 
   /**

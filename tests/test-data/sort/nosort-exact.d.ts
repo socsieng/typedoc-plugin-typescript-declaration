@@ -1,4 +1,4 @@
-declare module ModuleB {
+declare namespace ModuleB {
   class ClassA {
     propA: number;
 
@@ -12,7 +12,7 @@ declare module ModuleB {
   }
 }
 
-declare module ModuleA {
+declare namespace ModuleA {
   class ClassB {
     propB: number;
 

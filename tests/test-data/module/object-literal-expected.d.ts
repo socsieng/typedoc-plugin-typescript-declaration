@@ -1,4 +1,4 @@
-declare module ObjectLiteralTest {
+declare namespace ObjectLiteralTest {
   const MyDefaultOptions: {
     on: boolean,
     off: boolean,

@@ -1,4 +1,4 @@
-export module ObjectLiteralTest {
+export namespace ObjectLiteralTest {
   export const MyDefaultOptions = {
     on: true,
     off: false,

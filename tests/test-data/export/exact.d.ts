@@ -1,7 +1,7 @@
 /**
  * Export test
  */
-declare module ExportTest {
+declare namespace ExportTest {
   class ExportedClass {
     private doSomethingPrivate(): void;
 

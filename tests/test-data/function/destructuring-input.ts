@@ -1,4 +1,4 @@
-export module test {
+export namespace test {
   /**
    * Adds many numbers together
    */

@@ -1,4 +1,4 @@
-export module test {
+export namespace test {
   export type StatusType = keyof StatusTypes;
   type StatusTypes = {
     /**

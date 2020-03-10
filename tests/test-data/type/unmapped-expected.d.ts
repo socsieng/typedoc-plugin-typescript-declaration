@@ -1,4 +1,4 @@
-declare module Unmapped {
+declare namespace Unmapped {
   class NotHidden {
     hidden: unknown;
     notHidden: NotHidden;
