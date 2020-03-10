@@ -1,18 +1,24 @@
 export default class Indentor {
-  private _indentCache: string[];
-  private _indentString: string;
+  public static indentString: string = '  ';
 
-  constructor(indentString: string = '  ') {
-    this._indentCache = [];
+  private _indentCache: { [key: string]: string };
+  private _indentString?: string;
+
+  constructor(indentString?: string) {
+    this._indentCache = {};
     this._indentString = indentString;
   }
 
   public getIndent(size: number): string {
     if (size === 0) return '';
 
-    let indent = this._indentCache[size];
+    const indentString = this._indentString ?? Indentor.indentString;
+    const key = `${indentString}_${size}`;
+
+    let indent = this._indentCache[key];
     if (indent === undefined) {
-      indent = new Array(size).fill(this._indentString).join('');
+      indent = new Array(size).fill(indentString).join('');
+      this._indentCache[key] = indent;
     }
     return indent;
   }

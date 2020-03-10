@@ -8,6 +8,7 @@ import { Renderer } from 'typedoc/dist/lib/output/renderer';
 import { RendererComponent } from 'typedoc/dist/lib/output/components';
 import { RendererEvent } from 'typedoc/dist/lib/output/events';
 import mkdir from 'make-dir';
+import Indentor from './render/indentor';
 
 const declarationFileOption = {
   name: 'declarationFile',
@@ -30,11 +31,19 @@ const sortOptionOption = {
   map: sortMapping,
 } as DeclarationOption;
 
+const indentStringOption = {
+  name: 'indentString',
+  type: ParameterType.String,
+  help: 'Indent declarations using this string. Defaults to \'  \'',
+  defaultValue: '  ',
+} as DeclarationOption;
+
 export class TypeScriptDeclarationPlugin extends RendererComponent {
   static options = [
     declarationFileOption,
     declarationOnlyOption,
     sortOptionOption,
+    indentStringOption,
   ];
 
   @BindOption(declarationFileOption.name)
@@ -76,9 +85,11 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
         .filter(c => c.componentName !== 'typescript-declaration')
         .forEach(c => app.renderer.removeComponent(c.componentName));
     }
+
+    Indentor.indentString = app.options.getValue('indentString') as string;
   }
 
-  private veriftProject(project: ProjectReflection) {
+  private verifyProject(project: ProjectReflection) {
     if (this._declarationOnly && !this._declarationFile) {
       throw new Error('--declarationFile file must be specified when using the --declarationOnly option');
     }
@@ -97,7 +108,7 @@ export class TypeScriptDeclarationPlugin extends RendererComponent {
   }
 
   private onRenderBegin(event: RendererEvent) {
-    this.veriftProject(event.project);
+    this.verifyProject(event.project);
   }
 
   public static generateTypeDeclarations(project: ProjectReflection, sortOption: ReflectionSortFlags, filename?: string) {
