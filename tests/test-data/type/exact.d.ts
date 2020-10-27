@@ -7,4 +7,6 @@ declare namespace Types {
     parameters: { param1: string, param2: string };
     items: [];
   }
+
+  type rootNode = HTMLElement | ShadowRoot;
 }

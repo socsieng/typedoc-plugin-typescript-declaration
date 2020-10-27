@@ -106,7 +106,13 @@ export default class UnresolvedTypesMapper {
       // otherwise, do nothing, mapped already contains filtered list
 
       // get unique list of types from remapped types
-      mapped = mapped.filter((type, index, array) => array.findIndex(item => type.equals(item)) === index);
+      const unique: Type[] = [];
+      mapped.forEach(item => {
+        if (!unique.find(type => this.equalsWorkaround(item, type))) {
+          unique.push(item);
+        }
+      });
+      mapped = unique;
 
       if (mapped.length === 1) {
         return mapped[0];
@@ -139,5 +145,13 @@ export default class UnresolvedTypesMapper {
 
   private getReflectionsByInstanceType<T extends Reflection>(project: ProjectReflection, func: { new(...args: any[]): T }): T[] {
     return Object.values(project.reflections).filter(r => r instanceof func) as unknown as T[];
+  }
+
+  private equalsWorkaround(type1: Type, type2: Type): boolean {
+    return type1.equals(type2)
+      && (
+        type1 instanceof ReferenceType && type2 instanceof ReferenceType
+        && ((type1.reflection ?? type1.symbolFullyQualifiedName) === (type2.reflection ?? type2.symbolFullyQualifiedName))
+      );
   }
 }
