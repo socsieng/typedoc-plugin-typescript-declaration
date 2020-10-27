@@ -33,7 +33,7 @@ export default class TypeLiteralRenderer extends ContainerRenderer {
       let signature = ReflectionFormatter.instance().render(member.signatures[0]);
       if (indent) {
         lines.push('');
-        signature = signature.split('\n').map(l => `  ${l}`).join('\n');
+        signature = signature.split('\n').map(l => `${this._indentor.getIndent(1)}${l}`).join('\n');
       }
       lines.push(signature);
     } else if (member.name === '__type') {

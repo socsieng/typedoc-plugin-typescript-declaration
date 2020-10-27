@@ -13,6 +13,7 @@ import Version from '../src/util/version';
 import VersionFilter from '../src/convert/version-filter';
 import glob from 'glob';
 import mkdir from 'make-dir';
+import Indentor from '../src/render/indentor';
 
 const writeOutput = process.env['DEBUG_MODE'] !== 'none';
 
@@ -55,8 +56,12 @@ describe('Dynamic test suite', () => {
     const basename = testFile.replace(/(input|exact)(\.d)?\.ts$/i, '');
     const expectedFile = /exact\.d\.ts$/i.test(testFile) ? testFile : `${basename}expected.d.ts`;
     const expectedOutput = fs.readFileSync(path.join(__dirname, expectedFile), 'utf8');
+    const optionsFile = path.join(__dirname, `${basename}options.json`);
+    const options = fs.existsSync(optionsFile) ? JSON.parse(fs.readFileSync(optionsFile, 'utf8')) : null;
 
-    ReflectionFormatter.sortOption = ReflectionSortFlags.tag;
+    ReflectionFormatter.sortOption = options?.sort ?? ReflectionSortFlags.tag;
+    Indentor.indentString = options?.indentString ?? '  ';
+
     const formatter = ReflectionFormatter.instance();
 
     if (project) {

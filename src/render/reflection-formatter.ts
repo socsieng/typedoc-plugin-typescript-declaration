@@ -25,7 +25,6 @@ export const sortMapping: { [key: string]: ReflectionSortFlags | undefined } = {
 
 export default class ReflectionFormatter {
   public static sortOption: ReflectionSortFlags = ReflectionSortFlags.none;
-  public static indentString: string = '  ';
 
   public render(reflection?: Reflection, terminatorCharacter?: string): string {
     if (reflection) {
