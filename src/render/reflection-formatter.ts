@@ -27,15 +27,15 @@ export default class ReflectionFormatter {
   public static sortOption: ReflectionSortFlags = ReflectionSortFlags.none;
   public static indentString: string = '  ';
 
-  public render(reflection?: Reflection, terminatorCharater?: string): string {
+  public render(reflection?: Reflection, terminatorCharacter?: string): string {
     if (reflection) {
       const renderer = renderers[reflection.kind];
 
       if (renderer) {
-        return renderer.render(reflection, terminatorCharater);
+        return renderer.render(reflection, terminatorCharacter);
       }
 
-      throw new Error(`Unrecognised reflection for kind ${reflection.kindString} ${reflection.name}`);
+      throw new Error(`Unrecognized reflection for kind ${reflection.kindString} ${reflection.name}`);
     }
 
     return '';

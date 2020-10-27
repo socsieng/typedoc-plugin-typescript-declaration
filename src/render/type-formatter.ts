@@ -117,6 +117,6 @@ export default class TypeFormatter {
       return other.name;
     }
 
-    throw(`Unrecognised type: ${type.type}`);
+    throw(`Unrecognized type: ${type.type}`);
   }
 }
