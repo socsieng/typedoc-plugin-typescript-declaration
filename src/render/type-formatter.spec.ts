@@ -55,7 +55,7 @@ it('should format array type', () => {
 });
 
 it('should format type operator type', () => {
-  const type = new TypeOperatorType(new IntrinsicType('MyClass'));
+  const type = new TypeOperatorType(new IntrinsicType('MyClass'), 'keyof');
   expect(TypeFormatter.format(type)).toEqual('keyof MyClass');
 });
 
