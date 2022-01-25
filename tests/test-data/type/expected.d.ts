@@ -8,3 +8,5 @@ declare type StatusTypes = {
    */
   "all-bad": string;
 }
+
+declare type OptionalBoolean = boolean | undefined;

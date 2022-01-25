@@ -105,6 +105,17 @@ export default class UnresolvedTypesMapper {
       }
       // otherwise, do nothing, mapped already contains filtered list
 
+      if (this.containsBoolean(type)) {
+        // replace true | false with boolean
+        const indexTrue = mapped.findIndex(t => t instanceof IntrinsicType && t.name === 'true');
+        const indexFalse = mapped.findIndex(t => t instanceof IntrinsicType && t.name === 'false');
+        const firstIndex = Math.min(indexTrue, indexFalse);
+        const lastIndex = Math.max(indexTrue, indexFalse);
+
+        mapped.splice(firstIndex, 1, new IntrinsicType('boolean'));
+        mapped.splice(lastIndex, 1);
+      }
+
       // get unique list of types from remapped types
       const unique: Type[] = [];
       mapped.forEach(item => {
@@ -141,6 +152,13 @@ export default class UnresolvedTypesMapper {
     }
 
     return this.isUnmapped(type) ? new UnknownType('unknown') : type;
+  }
+
+  private containsBoolean(type: UnionType): boolean {
+    return (
+      !!type.types.find(t => t instanceof IntrinsicType && t.name === 'true')
+      && !!type.types.find(t => t instanceof IntrinsicType && t.name === 'false')
+    );
   }
 
   private getReflectionsByInstanceType<T extends Reflection>(project: ProjectReflection, func: { new(...args: any[]): T }): T[] {

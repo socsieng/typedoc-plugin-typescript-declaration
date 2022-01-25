@@ -8,3 +8,5 @@ export type StatusTypes = {
    */
   'all-bad': string;
 }
+
+export type OptionalBoolean = boolean | undefined;
